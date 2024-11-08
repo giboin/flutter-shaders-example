@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:glow_stuff_with_flutter/glow_stuff/glow_stuff.dart';
+import 'package:glow_stuff_with_flutter/glow_stuff/view/glow_stuff_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

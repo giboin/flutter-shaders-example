@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import 'package:flutter_shaders/flutter_shaders.dart';
-import 'package:glow_stuff_with_flutter/glow_stuff/glow_stuff.dart';
+import 'package:glow_stuff_with_flutter/glow_stuff/widgets/scroll_aware_builder.dart';
 
 class ApplyGlow extends StatefulWidget {
   const ApplyGlow({
@@ -41,6 +41,7 @@ class _ApplyGlowState extends State<ApplyGlow> {
     assetImage
         .loadBuffer(
       key,
+      // ignore: deprecated_member_use
       PaintingBinding.instance.instantiateImageCodecFromBuffer,
     )
         .addListener(
@@ -61,7 +62,7 @@ class _ApplyGlowState extends State<ApplyGlow> {
       return const SizedBox.shrink();
     }
 
-    final horzDev = HorizontalDeviationProvider.of(context);
+    // final horzDev = HorizontalDeviationProvider.of(context);
 
     return ScrollAwareBuilder(
       builder: (context, scrollFraction) {
@@ -76,7 +77,7 @@ class _ApplyGlowState extends State<ApplyGlow> {
                 shader
                   ..setFloat(0, image.width.toDouble() / devicePixelRatio)
                   ..setFloat(1, image.height.toDouble() / devicePixelRatio)
-                  ..setFloat(2, horzDev)
+                  ..setFloat(2, 0.5)
                   ..setFloat(3, scrollFraction)
                   ..setFloat(4, widget.density)
                   ..setFloat(5, widget.lightStrength)

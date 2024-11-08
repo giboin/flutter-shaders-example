@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:glow_stuff_with_flutter/glow_stuff/glow_stuff.dart';
+import 'package:glow_stuff_with_flutter/glow_stuff/widgets/apply_glow.dart';
+import 'package:glow_stuff_with_flutter/glow_stuff/widgets/examples.dart';
+import 'package:glow_stuff_with_flutter/glow_stuff/widgets/horizontal_deviation.dart';
 
 class GlowStuffPage extends StatelessWidget {
   const GlowStuffPage({super.key});
