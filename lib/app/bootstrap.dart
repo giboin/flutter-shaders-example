@@ -10,7 +10,8 @@ Future<void> bootstrap() async {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
-  final fragmentProgram = await FragmentProgram.fromAsset('shaders/green.frag');
+  final fragmentProgram =
+      await FragmentProgram.fromAsset('shaders/gradient.frag');
 
   await runZonedGuarded(
     () async => runApp(App(shader: fragmentProgram.fragmentShader())),

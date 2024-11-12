@@ -2,15 +2,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 
-class GreenPage extends StatelessWidget {
-  const GreenPage({super.key, required this.shader});
+class GradientPage extends StatelessWidget {
+  const GradientPage({super.key, required this.shader});
 
   final FragmentShader shader;
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: MyPainter(shader: shader, color: Colors.green),
+    return Scaffold(
+      body: CustomPaint(
+        painter: MyPainter(shader: shader, color: Colors.green),
+        child: const Center(
+          child: Text(
+            'hello world',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+          ),
+        ),
+      ),
     );
   }
 }

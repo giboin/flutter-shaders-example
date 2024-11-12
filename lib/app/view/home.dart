@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 import 'package:glow_stuff_with_flutter/glow_stuff/view/glow_stuff_page.dart';
-import 'package:glow_stuff_with_flutter/green_page/view/green_page.dart';
+import 'package:glow_stuff_with_flutter/gradient/view/gradient_page.dart';
 import 'package:glow_stuff_with_flutter/ripple/view/ripple.dart';
 
 class HomeView extends StatelessWidget {
@@ -22,10 +22,10 @@ class HomeView extends StatelessWidget {
               children: [
                 Card(
                   child: ListTile(
-                    title: const Text('green page'),
+                    title: const Text('gradient page'),
                     onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<GreenPage>(
-                        builder: (context) => GreenPage(
+                      MaterialPageRoute<GradientPage>(
+                        builder: (context) => GradientPage(
                           shader: shader,
                         ),
                       ),
