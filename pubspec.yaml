@@ -25,6 +25,6 @@ flutter:
   uses-material-design: true
   generate: true
   shaders:
-    - shaders/dir_glow.glsl
+    - shaders/ripple.frag
   assets:
     - assets/
