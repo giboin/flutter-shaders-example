@@ -26,5 +26,6 @@ flutter:
   generate: true
   shaders:
     - shaders/ripple.frag
+    - shaders/green.frag
   assets:
     - assets/

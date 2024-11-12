@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 import 'package:glow_stuff_with_flutter/glow_stuff/view/glow_stuff_page.dart';
+import 'package:glow_stuff_with_flutter/green_page/view/green_page.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({super.key, required this.shader});
+
+  final FragmentShader shader;
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +17,17 @@ class App extends StatelessWidget {
           accentColor: const Color(0xFF13B9FF),
         ),
       ),
-      home: const HomeView(),
+      home: HomeView(
+        shader: shader,
+      ),
     );
   }
 }
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({super.key, required this.shader});
+
+  final FragmentShader shader;
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -87,6 +94,19 @@ class _HomeViewState extends State<HomeView>
                           onTap: () => Navigator.of(context).push(
                             MaterialPageRoute<GlowStuffPage>(
                               builder: (context) => const GlowStuffPage(),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Card(
+                        child: ListTile(
+                          title: const Text('green page'),
+                          onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute<GreenPage>(
+                              builder: (context) => GreenPage(
+                                shader: widget.shader,
+                              ),
                             ),
                           ),
                         ),
