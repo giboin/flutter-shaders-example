@@ -3,6 +3,7 @@ import 'package:flutter_shaders/flutter_shaders.dart';
 import 'package:glow_stuff_with_flutter/glow_stuff/view/glow_stuff_page.dart';
 import 'package:glow_stuff_with_flutter/gradient/view/gradient_page.dart';
 import 'package:glow_stuff_with_flutter/ripple/view/ripple.dart';
+import 'package:glow_stuff_with_flutter/shader_builder/view/shader_builder_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.shader});
@@ -28,6 +29,17 @@ class HomeView extends StatelessWidget {
                         builder: (context) => GradientPage(
                           shader: shader,
                         ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Card(
+                  child: ListTile(
+                    title: const Text('shader builder page'),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<ShaderBuilderPage>(
+                        builder: (context) => const ShaderBuilderPage(),
                       ),
                     ),
                   ),
