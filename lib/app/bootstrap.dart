@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
+import 'package:glow_stuff_with_flutter/app/view/app.dart';
 
-Future<void> bootstrap(
-    FutureOr<Widget> Function(FragmentShader shader) builder) async {
+Future<void> bootstrap() async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
@@ -13,7 +13,7 @@ Future<void> bootstrap(
   final fragmentProgram = await FragmentProgram.fromAsset('shaders/green.frag');
 
   await runZonedGuarded(
-    () async => runApp(await builder(fragmentProgram.fragmentShader())),
+    () async => runApp(App(shader: fragmentProgram.fragmentShader())),
     (error, stackTrace) => log(error.toString(), stackTrace: stackTrace),
   );
 }
