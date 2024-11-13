@@ -7,6 +7,7 @@ import 'package:glow_stuff_with_flutter/gradient/view/gradient_page.dart';
 import 'package:glow_stuff_with_flutter/ripple/view/ripple.dart';
 import 'package:glow_stuff_with_flutter/shader_builder/view/shader_builder_page.dart';
 import 'package:glow_stuff_with_flutter/shader_mask/view/shader_mask_page.dart';
+import 'package:glow_stuff_with_flutter/water_ripple/view/water_ripple_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.shader});
@@ -77,6 +78,17 @@ class HomeView extends StatelessWidget {
                       MaterialPageRoute<AnimatedShaderMaskOnScreenPage>(
                         builder: (context) =>
                             const AnimatedShaderMaskOnScreenPage(),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Card(
+                  child: ListTile(
+                    title: const Text('water ripple'),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<WaterRipplePage>(
+                        builder: (context) => const WaterRipplePage(),
                       ),
                     ),
                   ),
