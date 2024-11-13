@@ -27,5 +27,6 @@ flutter:
   shaders:
     - shaders/ripple.frag
     - shaders/gradient.frag
+    - shaders/water_ripple.frag
   assets:
     - assets/

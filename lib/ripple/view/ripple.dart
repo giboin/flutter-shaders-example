@@ -50,53 +50,41 @@ class _RipplePageState extends State<RipplePage>
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Scaffold(
-          body: Center(
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Center(
             child: Card(
               child: GestureDetector(
                 onTapDown: _handleTap,
                 child: const ListTile(
-                  title: Text('ripple effect'),
+                  title: Text('Tap for wave effect'),
                 ),
               ),
             ),
           ),
-        ),
-        if (_isAnimating && _tapPosition != null)
-          RepaintBoundary(
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (context, child) {
-                return ShaderBuilder(
-                  assetKey: 'shaders/ripple.frag',
-                  (context, shader, child) {
-                    shader
-                      ..setFloat(0, size.width)
-                      ..setFloat(1, size.height)
-                      ..setFloat(2, _tapPosition!.dx)
-                      ..setFloat(3, _tapPosition!.dy)
-                      ..setFloat(4, _controller.value)
-                      ..setFloat(5, 0.5);
+          if (_isAnimating && _tapPosition != null)
+            ShaderBuilder(
+              assetKey: 'shaders/ripple.frag',
+              (context, shader, child) {
+                shader
+                  ..setFloat(0, size.width)
+                  ..setFloat(1, size.height)
+                  ..setFloat(2, _tapPosition!.dx)
+                  ..setFloat(3, _tapPosition!.dy)
+                  ..setFloat(4, _controller.value)
+                  ..setFloat(5, 0.5);
 
-                    return ShaderMask(
-                      blendMode: BlendMode.srcATop,
-                      shaderCallback: (bounds) => shader,
-                      child: child,
-                    );
-                  },
-                  child: Container(
-                    width: size.width,
-                    height: size.height,
-                    color: Colors.transparent,
-                  ),
+                return ShaderMask(
+                  blendMode: BlendMode.srcATop,
+                  shaderCallback: (bounds) => shader,
+                  child: const SizedBox.expand(),
                 );
               },
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
