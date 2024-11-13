@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 import 'package:glow_stuff_with_flutter/animated_shader_mask/view/animated_shader_mask_page.dart';
+import 'package:glow_stuff_with_flutter/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
 import 'package:glow_stuff_with_flutter/glow_stuff/view/glow_stuff_page.dart';
 import 'package:glow_stuff_with_flutter/gradient/view/gradient_page.dart';
 import 'package:glow_stuff_with_flutter/ripple/view/ripple.dart';
@@ -64,6 +65,18 @@ class HomeView extends StatelessWidget {
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute<AnimatedShaderMaskPage>(
                         builder: (context) => const AnimatedShaderMaskPage(),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Card(
+                  child: ListTile(
+                    title: const Text('animated shader mask on screen'),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<AnimatedShaderMaskOnScreenPage>(
+                        builder: (context) =>
+                            const AnimatedShaderMaskOnScreenPage(),
                       ),
                     ),
                   ),
