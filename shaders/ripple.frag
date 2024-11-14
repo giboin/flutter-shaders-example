@@ -11,9 +11,12 @@ uniform vec2 iMouse;
 uniform float iTime;
 uniform sampler2D iChannel0;
 
-const float amplitude = 0.05; // Default amplitude of the ripple
-const float frequency = 15.0; // Default frequency of the ripple
-const float decay = 10.0; // Default decay rate of the ripple
+const float rippleAmplitude = 0.05; // Default amplitude of the ripple
+const float fadeAmplitude = 0.3; // Default amplitude of the ripple
+const float rippleFrequency = 15.0; // Default frequency of the ripple
+const float fadeFrequency = 3; // Default frequency of the ripple
+const float rippleDecay = 10.0; // Default decay rate of the ripple
+const float fadeDecay = 5.0; // Default decay rate of the ripple
 const float speed = 1.0; // Default speed of the ripple
 
 out vec4 fragColor;
@@ -39,7 +42,8 @@ void main()
     time = max(0.0, time);
 
     // Calculate the ripple amount
-    float rippleAmount = amplitude * sin(frequency * time) * exp(-decay * time);
+    float rippleAmount = rippleAmplitude * sin(rippleFrequency * time) * exp(-rippleDecay * time);
+    float fadeAmount = fadeAmplitude * sin(fadeFrequency * time) * exp(-fadeDecay * time);
 
     // Calculate the normalized direction vector
     vec2 n = normalize(uv - origin);
@@ -51,7 +55,11 @@ void main()
     vec3 color = texture(iChannel0, newPosition).rgb;
 
     // Lighten or darken the color based on the ripple amount
-    color += 0.1 * (rippleAmount / amplitude);
+    color += 0.1 * (rippleAmount / rippleAmplitude);
+
+
+    // Add a fading blue tint to the ripple
+    color.b = color.b + distance*15 * fadeAmount;
 
     // Set the fragment color
     fragColor = vec4(color, 1.0);
