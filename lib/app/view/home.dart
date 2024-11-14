@@ -107,7 +107,7 @@ class HomeView extends StatelessWidget {
                 const SizedBox(height: 16),
                 Card(
                   child: ListTile(
-                    title: const Text('[wip] - ripple effect'),
+                    title: const Text('ripple effect on a widget'),
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute<RipplePage>(
                         builder: (context) => const RipplePage(),
