@@ -28,5 +28,6 @@ flutter:
     - shaders/ripple.frag
     - shaders/gradient.frag
     - shaders/water_ripple.frag
+    - shaders/dir_glow.glsl
   assets:
     - assets/
