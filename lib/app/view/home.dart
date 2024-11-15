@@ -96,10 +96,10 @@ class HomeView extends StatelessWidget {
                 const SizedBox(height: 16),
                 Card(
                   child: ListTile(
-                    title: const Text('glow stuff'),
+                    title: const Text('ripple effect on a widget'),
                     onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<GlowStuffPage>(
-                        builder: (context) => const GlowStuffPage(),
+                      MaterialPageRoute<RipplePage>(
+                        builder: (context) => const RipplePage(),
                       ),
                     ),
                   ),
@@ -107,10 +107,10 @@ class HomeView extends StatelessWidget {
                 const SizedBox(height: 16),
                 Card(
                   child: ListTile(
-                    title: const Text('ripple effect on a widget'),
+                    title: const Text('glow stuff'),
                     onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<RipplePage>(
-                        builder: (context) => const RipplePage(),
+                      MaterialPageRoute<GlowStuffPage>(
+                        builder: (context) => const GlowStuffPage(),
                       ),
                     ),
                   ),
