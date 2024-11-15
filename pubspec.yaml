@@ -15,7 +15,6 @@ dependencies:
   rive: ^0.9.1
   sensors_plus: ^2.0.1
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -29,5 +28,6 @@ flutter:
     - shaders/gradient.frag
     - shaders/water_ripple.frag
     - shaders/dir_glow.glsl
+    - shaders/halo.frag
   assets:
     - assets/
