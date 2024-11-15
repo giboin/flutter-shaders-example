@@ -28,6 +28,8 @@ class _RipplePageState extends State<RipplePage>
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.sizeOf(context);
+
     return Scaffold(
       body: Center(
         child: FutureBuilder(
@@ -60,7 +62,7 @@ class _RipplePageState extends State<RipplePage>
                 child: child,
               ),
               child: ColoredBox(
-                color: Colors.green,
+                color: Colors.white,
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -83,7 +85,10 @@ class _RipplePageState extends State<RipplePage>
                         ),
                         onPressed: () {
                           setState(() {
-                            _tapPosition = const Offset(200, 700);
+                            _tapPosition = Offset(
+                              screenSize.width / 2,
+                              screenSize.height - 100,
+                            );
                             _controller.forward(from: 0);
                           });
                         },
@@ -91,6 +96,7 @@ class _RipplePageState extends State<RipplePage>
                       const SizedBox(height: 20),
                       Slider(
                         activeColor: Colors.purple,
+                        inactiveColor: Colors.blue,
                         value: sliderValue,
                         onChanged: (value) {
                           setState(() {

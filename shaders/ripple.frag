@@ -12,7 +12,7 @@ uniform float iTime;
 uniform sampler2D iChannel0;
 
 const float rippleAmplitude = 0.05; // Default amplitude of the ripple
-const float fadeAmplitude = 0.3; // Default amplitude of the ripple
+const float fadeAmplitude = 2.0; // Default amplitude of the ripple
 const float rippleFrequency = 15.0; // Default frequency of the ripple
 const float fadeFrequency = 3; // Default frequency of the ripple
 const float rippleDecay = 10.0; // Default decay rate of the ripple
@@ -59,7 +59,9 @@ void main()
 
 
     // Add a fading blue tint to the ripple
-    color.b = color.b + distance*15 * fadeAmount;
+    color.b = color.b + distance * fadeAmount;
+    color.g = color.g - distance*0.5 * fadeAmount;
+    color.r = color.r - distance*0.5 * fadeAmount;
 
     // Set the fragment color
     fragColor = vec4(color, 1.0);
