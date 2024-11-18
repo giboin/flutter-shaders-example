@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 
+/// What about animated shaders?
+/// Remember that we can pass any value from dart to the shader.
+///
+/// This example is the same as the previous one, but one of the values
+/// passed to the shader is animated.
+///
+/// To force the shader to repaint, we add an `AnimatedBuilder` that listens
+/// to an `AnimationController`.
 class AnimatedShaderMaskPage extends StatefulWidget {
   const AnimatedShaderMaskPage({super.key});
 
