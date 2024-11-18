@@ -4,6 +4,7 @@ import 'package:glow_stuff_with_flutter/animated_shader_mask/view/animated_shade
 import 'package:glow_stuff_with_flutter/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
 import 'package:glow_stuff_with_flutter/glow_stuff/view/glow_stuff_page.dart';
 import 'package:glow_stuff_with_flutter/gradient/view/gradient_page.dart';
+import 'package:glow_stuff_with_flutter/gradient_flow/view/gradient_flow.dart';
 import 'package:glow_stuff_with_flutter/halo/view/halo.dart';
 import 'package:glow_stuff_with_flutter/ripple/view/ripple.dart';
 import 'package:glow_stuff_with_flutter/shader_builder/view/shader_builder_page.dart';
@@ -123,6 +124,17 @@ class HomeView extends StatelessWidget {
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute<HaloPage>(
                         builder: (context) => const HaloPage(),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Card(
+                  child: ListTile(
+                    title: const Text('gradient flow'),
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute<GradientFlowPage>(
+                        builder: (context) => const GradientFlowPage(),
                       ),
                     ),
                   ),
