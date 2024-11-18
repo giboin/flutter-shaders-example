@@ -4,6 +4,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 
+/// Now we know how to give an image to a shader, but what if we want
+/// to apply the previous ripple effect to a Widget? How could we
+/// convert the widget's rendering to a ui.Image?
+///
+/// The answer is `AnimatedSampler`. This widget takes a child, and gives
+/// you a callback in which you can access the image of the child
+/// rendered in a canvas.
+///
+/// Here is an example on how to use it to apply the ripple effect on a page.
 class RipplePage extends StatefulWidget {
   const RipplePage({super.key});
 
