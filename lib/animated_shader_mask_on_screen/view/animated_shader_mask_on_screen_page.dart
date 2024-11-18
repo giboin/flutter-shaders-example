@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 
+/// Nothing new here, just an other example of using
+/// `ShaderMask` with an animation, to show that it works on any widget.
+/// Even a whole screen or an app.
 class AnimatedShaderMaskOnScreenPage extends StatefulWidget {
   const AnimatedShaderMaskOnScreenPage({super.key});
 
@@ -32,7 +35,7 @@ class _AnimatedShaderMaskOnScreenPageState
           builder: (context, child) => ShaderBuilder(
             (context, shader, child) {
               return ShaderMask(
-                blendMode: BlendMode.srcIn,
+                blendMode: BlendMode.srcATop,
                 shaderCallback: (bounds) {
                   const color = Colors.blue;
 
