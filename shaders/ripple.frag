@@ -11,8 +11,8 @@ uniform vec2 iMouse;
 uniform float iTime;
 uniform sampler2D iChannel0;
 
-const float rippleAmplitude = 0.05; // Default amplitude of the ripple
-const float fadeAmplitude = 2.0; // Default amplitude of the ripple
+const float rippleAmplitude = 0.07; // Default amplitude of the ripple
+const float fadeAmplitude = 1.5; // Default amplitude of the ripple
 const float rippleFrequency = 15.0; // Default frequency of the ripple
 const float fadeFrequency = 3; // Default frequency of the ripple
 const float rippleDecay = 10.0; // Default decay rate of the ripple
@@ -57,11 +57,9 @@ void main()
     // Lighten or darken the color based on the ripple amount
     color += 0.1 * (rippleAmount / rippleAmplitude);
 
-
+    vec3 blue = normalize(vec3(0, 110, 255));
     // Add a fading blue tint to the ripple
-    color.b = color.b + distance * fadeAmount;
-    color.g = color.g - distance*0.5 * fadeAmount;
-    color.r = color.r - distance*0.5 * fadeAmount;
+    color = mix(color, blue , fadeAmount);
 
     // Set the fragment color
     fragColor = vec4(color, 1.0);
