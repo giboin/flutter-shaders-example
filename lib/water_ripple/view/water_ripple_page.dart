@@ -4,6 +4,20 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 
+/// Some shaders not only take vectors or floats as entry, but also textures.
+/// In the .frag file, it is declared this way:
+/// ```
+/// uniform sampler2D texture;
+/// ```
+///
+/// The dart object that we can pass to a shader as texture is a `ui.Image`.
+/// We can pass an image to a shader by calling `setImageSampler` on the shader.
+///
+/// So if we call `shader.setImageSampler(0, image)` in dart, we can access
+/// the image in the shader file by using the `texture` uniform.
+///
+/// This example is the same as the previous one,
+/// except that this shader takes an image as input.
 class WaterRipplePage extends StatefulWidget {
   const WaterRipplePage({super.key});
 
