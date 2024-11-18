@@ -116,6 +116,7 @@ class HomeView extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 16),
                 Card(
                   child: ListTile(
                     title: const Text('halo'),
