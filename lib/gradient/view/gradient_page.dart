@@ -1,7 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 
+/// The most basic way of using shaders in Flutter.
+/// This example shows how to create a gradient using a fragment shader.
+///
+/// The shader is initialized in the bootstrap method of the app and
+/// passed down to the page that needs it.
+///
+/// Then the shader is used in a custom painter to paint the gradient.
 class GradientPage extends StatelessWidget {
   const GradientPage({super.key, required this.shader});
 
@@ -23,6 +29,25 @@ class GradientPage extends StatelessWidget {
   }
 }
 
+/// In the paint method of the custom painter,
+/// we can pass some values to the variables defined in the .frag shader file.
+///
+/// In this case (shaders/gradient.frag), the shader file expects those vectors:
+/// ```
+/// uniform vec2 uSize;
+/// uniform vec4 uColor;
+/// ```
+/// So we pass:
+/// - the size's first value (width) to the first float (0)
+/// - the size's second value (height) to the second float (1),
+/// - the color's red value to the third float (2),
+/// - the color's green value to the fourth float (3),
+/// - the color's blue value to the fifth float (4),
+/// - then the color's alpha value to the sixth float (5).
+///
+/// In glsl, the color is defined as a vector with four values (r, g, b, a)
+/// that go from 0 to 1. So we divide the color's values by 255 to get the
+/// normalized values.
 class MyPainter extends CustomPainter {
   MyPainter({required this.shader, required this.color});
 
