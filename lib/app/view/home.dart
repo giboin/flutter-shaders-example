@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
-import 'package:flutter_shaders_example/animated_shader_mask/view/animated_shader_mask_page.dart';
-import 'package:flutter_shaders_example/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
+import 'package:flutter_shaders_example/tutorial/animated_shader_mask/view/animated_shader_mask_page.dart';
+import 'package:flutter_shaders_example/tutorial/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
 import 'package:flutter_shaders_example/glow_stuff/view/glow_stuff_page.dart';
-import 'package:flutter_shaders_example/gradient/view/gradient_page.dart';
+import 'package:flutter_shaders_example/tutorial/gradient/view/gradient_page.dart';
 import 'package:flutter_shaders_example/halo/view/halo.dart';
-import 'package:flutter_shaders_example/ripple/view/ripple.dart';
-import 'package:flutter_shaders_example/shader_builder/view/shader_builder_page.dart';
-import 'package:flutter_shaders_example/shader_mask/view/shader_mask_page.dart';
-import 'package:flutter_shaders_example/water_ripple/view/water_ripple_page.dart';
+import 'package:flutter_shaders_example/tutorial/ripple/view/ripple.dart';
+import 'package:flutter_shaders_example/tutorial/shader_builder/view/shader_builder_page.dart';
+import 'package:flutter_shaders_example/tutorial/shader_mask/view/shader_mask_page.dart';
+import 'package:flutter_shaders_example/tutorial/water_ripple/view/water_ripple_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.shader});

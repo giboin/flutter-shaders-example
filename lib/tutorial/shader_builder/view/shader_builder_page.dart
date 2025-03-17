@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
-import 'package:flutter_shaders_example/gradient/view/gradient_page.dart';
+import 'package:flutter_shaders_example/tutorial/gradient/view/gradient_page.dart';
 
 /// The most straightforward way of using shaders in Flutter.
 /// This example shows how to use a .frag file with a `ShaderBuilder`.
