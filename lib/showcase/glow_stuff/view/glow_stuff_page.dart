@@ -34,7 +34,7 @@ class GlowStuffView extends StatelessWidget {
             ),
             const SliverToBoxAdapter(
               child: ApplyGlow(
-                density: 0.40,
+                density: 0.4,
                 weight: 0.2,
                 child: LongTextExample(),
               ),

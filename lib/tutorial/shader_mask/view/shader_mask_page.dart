@@ -24,10 +24,11 @@ class ShaderMaskPage extends StatelessWidget {
               shader
                 ..setFloat(0, bounds.width)
                 ..setFloat(1, bounds.height)
-                ..setFloat(2, color.red.toDouble() / 255)
-                ..setFloat(3, color.green.toDouble() / 255)
-                ..setFloat(4, color.blue.toDouble() / 255)
-                ..setFloat(5, color.alpha.toDouble() / 255);
+                ..setFloat(2, color.r.toDouble() / 255)
+                ..setFloat(3, color.g.toDouble() / 255)
+                ..setFloat(4, color.b.toDouble() / 255)
+                ..setFloat(5, color.a.toDouble() / 255);
+
               return shader;
             },
             child: child,

@@ -59,10 +59,10 @@ class MyPainter extends CustomPainter {
     shader
       ..setFloat(0, size.width)
       ..setFloat(1, size.height)
-      ..setFloat(2, color.red.toDouble() / 255)
-      ..setFloat(3, color.green.toDouble() / 255)
-      ..setFloat(4, color.blue.toDouble() / 255)
-      ..setFloat(5, color.alpha.toDouble() / 255);
+      ..setFloat(2, color.r.toDouble() / 255)
+      ..setFloat(3, color.g.toDouble() / 255)
+      ..setFloat(4, color.b.toDouble() / 255)
+      ..setFloat(5, color.a.toDouble() / 255);
 
     canvas.drawRect(
       Offset.zero & size,

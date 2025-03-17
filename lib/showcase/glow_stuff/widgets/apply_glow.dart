@@ -47,9 +47,9 @@ class _ApplyGlowState extends State<ApplyGlow> {
     final key = await assetImage.obtainKey(ImageConfiguration.empty);
 
     assetImage
-        .loadBuffer(
+        .loadImage(
       key,
-      PaintingBinding.instance.instantiateImageCodecFromBuffer,
+      PaintingBinding.instance.instantiateImageCodecWithSize,
     )
         .addListener(
       ImageStreamListener((image, synchronousCall) {
