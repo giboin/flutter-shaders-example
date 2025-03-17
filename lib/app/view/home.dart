@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
+import 'package:flutter_shaders_example/app/view/app_tile.dart';
 import 'package:flutter_shaders_example/tutorial/animated_shader_mask/view/animated_shader_mask_page.dart';
 import 'package:flutter_shaders_example/tutorial/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
 import 'package:flutter_shaders_example/showcase/glow_stuff/view/glow_stuff_page.dart';
@@ -21,114 +22,114 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: safePadding + const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                Card(
-                  child: ListTile(
-                    title: const Text('gradient page'),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<GradientPage>(
-                        builder: (context) => GradientPage(shader: shader),
-                      ),
-                    ),
-                  ),
+        child: ListView(
+          padding: safePadding + const EdgeInsets.all(24),
+          children: [
+            const _SectionHeader(title: 'Tutorial'),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Gradient',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<GradientPage>(
+                  builder: (context) => GradientPage(shader: shader),
                 ),
-                const SizedBox(height: 16),
-                Card(
-                  child: ListTile(
-                    title: const Text('shader builder page'),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<ShaderBuilderPage>(
-                        builder: (context) => const ShaderBuilderPage(),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  child: ListTile(
-                    title: const Text('shader mask page'),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<ShaderMaskPage>(
-                        builder: (context) => const ShaderMaskPage(),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  child: ListTile(
-                    title: const Text('animated shader mask'),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<AnimatedShaderMaskPage>(
-                        builder: (context) => const AnimatedShaderMaskPage(),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  child: ListTile(
-                    title: const Text('animated shader mask on screen'),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<AnimatedShaderMaskOnScreenPage>(
-                        builder: (context) =>
-                            const AnimatedShaderMaskOnScreenPage(),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  child: ListTile(
-                    title: const Text('water ripple'),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<WaterRipplePage>(
-                        builder: (context) => const WaterRipplePage(),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  child: ListTile(
-                    title: const Text('ripple effect on a widget'),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<RipplePage>(
-                        builder: (context) => const RipplePage(),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  child: ListTile(
-                    title: const Text('glow stuff'),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<GlowStuffPage>(
-                        builder: (context) => const GlowStuffPage(),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Card(
-                  child: ListTile(
-                    title: const Text('halo'),
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute<HaloPage>(
-                        builder: (context) => const HaloPage(),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Shader Builder',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<ShaderBuilderPage>(
+                  builder: (context) => const ShaderBuilderPage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Shader Mask',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<ShaderMaskPage>(
+                  builder: (context) => const ShaderMaskPage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Animated Shader Mask',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<AnimatedShaderMaskPage>(
+                  builder: (context) => const AnimatedShaderMaskPage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Animated Shader Mask On Screen',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<AnimatedShaderMaskOnScreenPage>(
+                  builder: (context) => const AnimatedShaderMaskOnScreenPage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Water Ripple',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<WaterRipplePage>(
+                  builder: (context) => const WaterRipplePage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Ripple Effect',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<RipplePage>(
+                  builder: (context) => const RipplePage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 48),
+            const _SectionHeader(title: 'Showcase'),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Glow Stuff',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<GlowStuffPage>(
+                  builder: (context) => const GlowStuffPage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Halo',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<HaloPage>(
+                  builder: (context) => const HaloPage(),
+                ),
+              ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+}
+
+class _SectionHeader extends StatelessWidget {
+  const _SectionHeader({required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      title,
+      style: const TextStyle(
+        color: Color(0xFF6B7280),
+        fontSize: 13,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 1.5,
       ),
     );
   }
