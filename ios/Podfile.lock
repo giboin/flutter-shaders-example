@@ -1,0 +1,28 @@
+PODS:
+  - Flutter (1.0.0)
+  - rive_common (0.0.1):
+    - Flutter
+  - sensors_plus (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - rive_common (from `.symlinks/plugins/rive_common/ios`)
+  - sensors_plus (from `.symlinks/plugins/sensors_plus/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  rive_common:
+    :path: ".symlinks/plugins/rive_common/ios"
+  sensors_plus:
+    :path: ".symlinks/plugins/sensors_plus/ios"
+
+SPEC CHECKSUMS:
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  rive_common: 174a033b260147a98ca082e0c76a6eacc800c4cc
+  sensors_plus: 3c3bac724a2128c895623e03efd82cf0e94fd8e8
+
+PODFILE CHECKSUM: 4305caec6b40dde0ae97be1573c53de1882a07e5
+
+COCOAPODS: 1.16.2

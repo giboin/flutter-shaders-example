@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
-import 'package:glow_stuff_with_flutter/app/view/home.dart';
+import 'package:flutter_shaders_example/app/view/home.dart';
 
 class App extends StatelessWidget {
   const App({super.key, required this.shader});
@@ -16,9 +16,7 @@ class App extends StatelessWidget {
           accentColor: const Color(0xFF13B9FF),
         ),
       ),
-      home: HomeView(
-        shader: shader,
-      ),
+      home: HomeView(shader: shader),
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:glow_stuff_with_flutter/app/bootstrap.dart';
+import 'package:flutter_shaders_example/app/bootstrap.dart';
 
 void main() {
   bootstrap();

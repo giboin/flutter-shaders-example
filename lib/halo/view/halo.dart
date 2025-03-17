@@ -17,8 +17,8 @@ class _HaloPageState extends State<HaloPage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override

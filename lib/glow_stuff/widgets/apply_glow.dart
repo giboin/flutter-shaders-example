@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import 'package:flutter_shaders/flutter_shaders.dart';
-import 'package:glow_stuff_with_flutter/glow_stuff/widgets/scroll_aware_builder.dart';
+import 'package:flutter_shaders_example/glow_stuff/widgets/scroll_aware_builder.dart';
 
 class ApplyGlow extends StatefulWidget {
   const ApplyGlow({
@@ -70,30 +70,27 @@ class _ApplyGlowState extends State<ApplyGlow> {
           assetKey: 'shaders/dir_glow.glsl',
           child: widget.child,
           (context, shader, child) {
-            return AnimatedSampler(
-              child: child!,
-              (ui.Image image, Size size, Offset offset, Canvas canvas) {
-                final devicePixelRatio = this.devicePixelRatio;
-                shader
-                  ..setFloat(0, image.width.toDouble() / devicePixelRatio)
-                  ..setFloat(1, image.height.toDouble() / devicePixelRatio)
-                  ..setFloat(2, 0.5)
-                  ..setFloat(3, scrollFraction)
-                  ..setFloat(4, widget.density)
-                  ..setFloat(5, widget.lightStrength)
-                  ..setFloat(6, widget.weight)
-                  ..setImageSampler(0, image)
-                  ..setImageSampler(1, noise);
-                canvas
-                  ..save()
-                  ..translate(offset.dx, offset.dy)
-                  ..drawRect(
-                    Offset.zero & size,
-                    Paint()..shader = shader,
-                  )
-                  ..restore();
-              },
-            );
+            return AnimatedSampler(child: child!, (
+              ui.Image image,
+              Size size,
+              Canvas canvas,
+            ) {
+              final devicePixelRatio = this.devicePixelRatio;
+              shader
+                ..setFloat(0, image.width.toDouble() / devicePixelRatio)
+                ..setFloat(1, image.height.toDouble() / devicePixelRatio)
+                ..setFloat(2, 0.5)
+                ..setFloat(3, scrollFraction)
+                ..setFloat(4, widget.density)
+                ..setFloat(5, widget.lightStrength)
+                ..setFloat(6, widget.weight)
+                ..setImageSampler(0, image)
+                ..setImageSampler(1, noise);
+              canvas
+                ..save()
+                ..drawRect(Offset.zero & size, Paint()..shader = shader)
+                ..restore();
+            });
           },
         );
       },

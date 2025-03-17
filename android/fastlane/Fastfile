@@ -1,3 +1,0 @@
-lane :hard_deploy do
-    sh('flutter build apk --release')
-    end

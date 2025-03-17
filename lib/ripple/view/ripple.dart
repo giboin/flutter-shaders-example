@@ -42,7 +42,7 @@ class _RipplePageState extends State<RipplePage>
           animation: _controller,
           builder: (context, child) => ShaderBuilder(
             (context, shader, child) => AnimatedSampler(
-              (image, size, offset, canvas) {
+              (image, size, canvas) {
                 shader
                   ..setFloat(0, size.width)
                   ..setFloat(1, size.height)

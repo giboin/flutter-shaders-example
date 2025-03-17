@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:glow_stuff_with_flutter/glow_stuff/widgets/apply_glow.dart';
-import 'package:glow_stuff_with_flutter/glow_stuff/widgets/examples.dart';
-import 'package:glow_stuff_with_flutter/glow_stuff/widgets/horizontal_deviation.dart';
+import 'package:flutter_shaders_example/glow_stuff/widgets/apply_glow.dart';
+import 'package:flutter_shaders_example/glow_stuff/widgets/examples.dart';
+import 'package:flutter_shaders_example/glow_stuff/widgets/horizontal_deviation.dart';
 
 class GlowStuffPage extends StatelessWidget {
   const GlowStuffPage({super.key});
@@ -12,9 +12,7 @@ class GlowStuffPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: GlowStuffView(),
-    );
+    return const Scaffold(body: GlowStuffView());
   }
 }
 
@@ -28,16 +26,9 @@ class GlowStuffView extends StatelessWidget {
         color: const Color(0xFF000000),
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
-              child: Container(
-                height: 250,
-              ),
-            ),
+            SliverToBoxAdapter(child: Container(height: 250)),
             const SliverToBoxAdapter(
-              child: ApplyGlow(
-                density: 0.9,
-                child: TextEditableExample(),
-              ),
+              child: ApplyGlow(density: 0.9, child: TextEditableExample()),
             ),
             const SliverToBoxAdapter(
               child: ApplyGlow(
@@ -54,10 +45,7 @@ class GlowStuffView extends StatelessWidget {
               ),
             ),
             const SliverToBoxAdapter(
-              child: ApplyGlow(
-                density: 0.9999,
-                child: RiveExample(),
-              ),
+              child: ApplyGlow(density: 0.9999, child: RiveExample()),
             ),
           ],
         ),

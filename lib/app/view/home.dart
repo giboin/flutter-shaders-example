@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
-import 'package:glow_stuff_with_flutter/animated_shader_mask/view/animated_shader_mask_page.dart';
-import 'package:glow_stuff_with_flutter/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
-import 'package:glow_stuff_with_flutter/glow_stuff/view/glow_stuff_page.dart';
-import 'package:glow_stuff_with_flutter/gradient/view/gradient_page.dart';
-import 'package:glow_stuff_with_flutter/halo/view/halo.dart';
-import 'package:glow_stuff_with_flutter/ripple/view/ripple.dart';
-import 'package:glow_stuff_with_flutter/shader_builder/view/shader_builder_page.dart';
-import 'package:glow_stuff_with_flutter/shader_mask/view/shader_mask_page.dart';
-import 'package:glow_stuff_with_flutter/water_ripple/view/water_ripple_page.dart';
+import 'package:flutter_shaders_example/animated_shader_mask/view/animated_shader_mask_page.dart';
+import 'package:flutter_shaders_example/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
+import 'package:flutter_shaders_example/glow_stuff/view/glow_stuff_page.dart';
+import 'package:flutter_shaders_example/gradient/view/gradient_page.dart';
+import 'package:flutter_shaders_example/halo/view/halo.dart';
+import 'package:flutter_shaders_example/ripple/view/ripple.dart';
+import 'package:flutter_shaders_example/shader_builder/view/shader_builder_page.dart';
+import 'package:flutter_shaders_example/shader_mask/view/shader_mask_page.dart';
+import 'package:flutter_shaders_example/water_ripple/view/water_ripple_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.shader});
@@ -31,9 +31,7 @@ class HomeView extends StatelessWidget {
                     title: const Text('gradient page'),
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute<GradientPage>(
-                        builder: (context) => GradientPage(
-                          shader: shader,
-                        ),
+                        builder: (context) => GradientPage(shader: shader),
                       ),
                     ),
                   ),
