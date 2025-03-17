@@ -47,7 +47,7 @@ class _HaloPageState extends State<HaloPage>
 }
 
 class HaloPainter extends CustomPainter {
-  HaloPainter({
+  const HaloPainter({
     required this.shader,
     required this.time,
   });

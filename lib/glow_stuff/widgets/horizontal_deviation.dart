@@ -21,24 +21,27 @@ class HorizontalDeviationProvider extends StatefulWidget {
   static double of(BuildContext context) {
     final result =
         context.dependOnInheritedWidgetOfExactType<_HorzDevInherit>();
-    assert(result != null, 'No _HorzDevInherit found in context');
-    return result!.position;
+    if (result == null) {
+      throw Exception('No _HorzDevInherit found in context');
+    }
+
+    return result.position;
   }
 }
 
 class _HorizontalDeviationProviderState
     extends State<HorizontalDeviationProvider> {
-  Size biggest = const Size(1, 1);
+  Size _biggest = const Size(1, 1);
 
-  double position = 0.5;
+  double _position = 0.5;
 
-  void handlePointerHover(PointerHoverEvent event) {
-    final frac = 2 * (event.localPosition.dx / biggest.width) - 1;
+  void _handlePointerHover(PointerHoverEvent event) {
+    final frac = (event.localPosition.dx / _biggest.width) * 2 - 1;
     final sign = frac.sign;
     final quad = frac * frac * sign;
 
     setState(() {
-      position = (quad + 1) / 2;
+      _position = (quad + 1) / 2;
     });
   }
 
@@ -46,18 +49,19 @@ class _HorizontalDeviationProviderState
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constrainst) {
-        biggest = constrainst.biggest;
+        _biggest = constrainst.biggest;
+
         return Listener(
-          onPointerHover: handlePointerHover,
+          onPointerHover: _handlePointerHover,
           child: GyroRoll(
-            rotationX: position,
-            builder: (context, value) {
+            rotationX: _position,
+            builder: (context, gyroValue) {
               return TweenAnimationBuilder(
                 duration: const Duration(milliseconds: 350),
-                tween: Tween<double>(begin: 0, end: value),
-                builder: (context, value, child) {
+                tween: Tween<double>(begin: 0, end: gyroValue),
+                builder: (context, tweenValue, child) {
                   return _HorzDevInherit(
-                    position: value,
+                    position: tweenValue,
                     child: widget.child,
                   );
                 },
@@ -100,58 +104,61 @@ class GyroRoll extends StatefulWidget {
 }
 
 class _GyroRollState extends State<GyroRoll> {
-  StreamSubscription<GyroscopeEvent>? subscription;
+  late double _rotationX = widget.rotationX;
+  bool _renderLock = false;
+  StreamSubscription<GyroscopeEvent>? _subscription;
 
   @override
   void initState() {
     super.initState();
 
-    if (defaultTargetPlatform == TargetPlatform.android ||
-        defaultTargetPlatform == TargetPlatform.iOS) {
-      subscription = gyroscopeEvents.listen(handleGyro);
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+      case TargetPlatform.iOS:
+        _subscription = gyroscopeEventStream().listen(_handleGyro);
+        break;
+      default:
+        break;
     }
   }
-
-  @override
-  void dispose() {
-    subscription?.cancel();
-    super.dispose();
-  }
-
-  late double rotationX = widget.rotationX;
-  bool renderLock = false;
 
   @override
   void didUpdateWidget(covariant GyroRoll oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    rotationX = widget.rotationX;
+    _rotationX = widget.rotationX;
 
-    renderLock = true;
+    _renderLock = true;
     Future.delayed(const Duration(milliseconds: 500), () {
-      renderLock = false;
+      _renderLock = false;
     });
   }
 
-  void handleGyro(GyroscopeEvent event) {
-    if (renderLock) return;
-    renderLock = true;
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
+  void _handleGyro(GyroscopeEvent event) {
+    if (_renderLock) return;
+    _renderLock = true;
 
     final amount =
         defaultTargetPlatform == TargetPlatform.iOS ? event.x : event.y;
     final factor = defaultTargetPlatform == TargetPlatform.iOS ? 1500 : 750;
 
     setState(() {
-      rotationX += (amount * 100).toInt() / factor;
+      _rotationX += (amount * 100).toInt() / factor;
     });
 
     Future.delayed(const Duration(milliseconds: 100), () {
-      renderLock = false;
+      _renderLock = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context, rotationX);
+    return widget.builder(context, _rotationX);
   }
 }

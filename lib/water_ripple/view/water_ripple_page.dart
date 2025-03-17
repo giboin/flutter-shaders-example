@@ -1,5 +1,4 @@
 import 'dart:ui' as ui;
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
@@ -35,8 +34,8 @@ class _WaterRipplePageState extends State<WaterRipplePage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -50,6 +49,7 @@ class _WaterRipplePageState extends State<WaterRipplePage>
             if (image == null) {
               return const SizedBox.shrink();
             }
+
             return SizedBox(
               width: 300,
               height: 300,
@@ -85,14 +85,15 @@ class _WaterRipplePageState extends State<WaterRipplePage>
 }
 
 Future<ui.Image> loadImage(String assetPath) async {
-  final buffer = await ImmutableBuffer.fromAsset(assetPath);
+  final buffer = await ui.ImmutableBuffer.fromAsset(assetPath);
   final codec = await ui.instantiateImageCodecFromBuffer(buffer);
   final frame = await codec.getNextFrame();
+
   return frame.image;
 }
 
 class RipplePainter extends CustomPainter {
-  RipplePainter({
+  const RipplePainter({
     required this.shader,
     this.offset,
     required this.time,

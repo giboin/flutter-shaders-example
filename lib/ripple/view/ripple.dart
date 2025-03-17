@@ -28,8 +28,8 @@ class _RipplePageState extends State<RipplePage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -55,7 +55,7 @@ class _RipplePageState extends State<RipplePage>
                   Paint()..shader = shader,
                 );
               },
-              child: child!,
+              child: child ?? const SizedBox.shrink(),
             ),
             assetKey: 'shaders/ripple.frag',
             child: child,

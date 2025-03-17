@@ -13,20 +13,27 @@ class TextEditableExample extends StatefulWidget {
 }
 
 class _TextEditableExampleState extends State<TextEditableExample> {
-  late final contoller = TextEditingController(text: 'Glowing text');
-  late final focusNode = FocusNode();
+  late final _contoller = TextEditingController(text: 'Glowing text');
+  late final _focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _contoller.dispose();
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // color: Colors.blue.shade900,
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.sizeOf(context).height,
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 36),
       child: Center(
         child: EditableText(
           // maxLines: 2,
-          controller: contoller,
-          focusNode: focusNode,
+          controller: _contoller,
+          focusNode: _focusNode,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontWeight: FontWeight.w900,
@@ -52,17 +59,23 @@ class ImageExample extends StatefulWidget {
 }
 
 class _ImageExampleState extends State<ImageExample> {
-  final controller = PhotoViewScaleStateController()
+  final _controller = PhotoViewScaleStateController()
     ..scaleState = PhotoViewScaleState.originalSize;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.sizeOf(context).height,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 200, horizontal: 36),
         child: PhotoView(
-          scaleStateController: controller,
+          scaleStateController: _controller,
           imageProvider: const AssetImage('assets/jamesweb.jpg'),
         ),
       ),
@@ -80,26 +93,28 @@ class RiveExample extends StatefulWidget {
 class _RiveExampleState extends State<RiveExample> {
   void _onRiveInit(Artboard artboard) {
     final controller =
-        StateMachineController.fromArtboard(artboard, 'State Machine 1');
-    artboard.addController(controller!);
+        // ignore: avoid-non-null-assertion , rive's typesafety is forcing this
+        StateMachineController.fromArtboard(artboard, 'State Machine 1')!;
+    artboard.addController(controller);
 
     controller.isActive = true;
 
-    controller.inputs.first.value = true;
+    controller.inputs.firstOrNull?.value = true;
   }
 
-  late final height = MediaQuery.of(context).size.height;
+  late final _height = MediaQuery.sizeOf(context).height;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
+      height: _height,
       child: ColoredBox(
         color: const Color(0xFF201620),
         child: Center(
           child: SizedBox(
             width: 900,
             height: 900,
+
             /// Rive animation by JcToon: https://rive.app/community/1534-6767-eye-icon/
             child: RiveAnimation.asset(
               'assets/eye.riv',

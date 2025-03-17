@@ -25,8 +25,8 @@ class _AnimatedShaderMaskPageState extends State<AnimatedShaderMaskPage>
 
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override

@@ -26,38 +26,43 @@ class ApplyGlow extends StatefulWidget {
 }
 
 class _ApplyGlowState extends State<ApplyGlow> {
+  late final _devicePixelRatio = MediaQuery.devicePixelRatioOf(context);
+
+  ui.Image? _noise;
+
   @override
   void initState() {
     super.initState();
-    getNoise();
+    _getNoise();
   }
 
-  ui.Image? noise;
+  @override
+  void dispose() {
+    _noise?.dispose();
+    super.dispose();
+  }
 
-  Future<void> getNoise() async {
+  Future<void> _getNoise() async {
     const assetImage = AssetImage('assets/noise.png');
     final key = await assetImage.obtainKey(ImageConfiguration.empty);
 
     assetImage
         .loadBuffer(
       key,
-      // ignore: deprecated_member_use
       PaintingBinding.instance.instantiateImageCodecFromBuffer,
     )
         .addListener(
       ImageStreamListener((image, synchronousCall) {
         setState(() {
-          noise = image.image;
+          _noise = image.image;
         });
       }),
     );
   }
 
-  late final devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
-
   @override
   Widget build(BuildContext context) {
-    final noise = this.noise;
+    final noise = this._noise;
     if (noise == null) {
       return const SizedBox.shrink();
     }
@@ -70,12 +75,12 @@ class _ApplyGlowState extends State<ApplyGlow> {
           assetKey: 'shaders/dir_glow.glsl',
           child: widget.child,
           (context, shader, child) {
-            return AnimatedSampler(child: child!, (
+            return AnimatedSampler(child: child ?? const SizedBox.shrink(), (
               ui.Image image,
               Size size,
               Canvas canvas,
             ) {
-              final devicePixelRatio = this.devicePixelRatio;
+              final devicePixelRatio = this._devicePixelRatio;
               shader
                 ..setFloat(0, image.width.toDouble() / devicePixelRatio)
                 ..setFloat(1, image.height.toDouble() / devicePixelRatio)

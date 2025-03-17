@@ -6,8 +6,10 @@ import 'package:flutter_shaders_example/glow_stuff/widgets/horizontal_deviation.
 class GlowStuffPage extends StatelessWidget {
   const GlowStuffPage({super.key});
 
-  static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const GlowStuffPage());
+  static Route<GlowStuffPage> route() {
+    return MaterialPageRoute<GlowStuffPage>(
+      builder: (_) => const GlowStuffPage(),
+    );
   }
 
   @override

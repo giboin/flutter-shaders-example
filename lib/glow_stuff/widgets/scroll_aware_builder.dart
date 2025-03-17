@@ -14,25 +14,25 @@ class ScrollAwareBuilder extends StatefulWidget {
 }
 
 class _ScrollAwareBuilderState extends State<ScrollAwareBuilder> {
+  double _centerOfTheScreenInRelationToMe = 1;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    getScrollPos();
+    _getScrollPos();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      onScrollPosChanged();
+      _onScrollPosChanged();
     });
   }
 
-  void getScrollPos() {
-    Scrollable.of(context).position.addListener(onScrollPosChanged);
+  void _getScrollPos() {
+    Scrollable.of(context).position.addListener(_onScrollPosChanged);
   }
 
-  double centerOfTheScreenInRelationToMe = 1;
-
-  void onScrollPosChanged() {
+  void _onScrollPosChanged() {
     final scrollable = Scrollable.of(context);
-    final scrollableBox = scrollable.context.findRenderObject()! as RenderBox;
-    final myRenderBox = context.findRenderObject()! as RenderBox;
+    final scrollableBox = scrollable.context.findRenderObject() as RenderBox;
+    final myRenderBox = context.findRenderObject() as RenderBox;
 
     final offset =
         myRenderBox.localToGlobal(Offset.zero, ancestor: scrollableBox).dy;
@@ -41,13 +41,13 @@ class _ScrollAwareBuilderState extends State<ScrollAwareBuilder> {
     final centerViewportOffset = viewportDimension - offset;
 
     setState(() {
-      centerOfTheScreenInRelationToMe =
+      _centerOfTheScreenInRelationToMe =
           centerViewportOffset / myRenderBox.size.height;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return widget.builder(context, centerOfTheScreenInRelationToMe);
+    return widget.builder(context, _centerOfTheScreenInRelationToMe);
   }
 }

@@ -49,7 +49,7 @@ class GradientPage extends StatelessWidget {
 /// that go from 0 to 1. So we divide the color's values by 255 to get the
 /// normalized values.
 class MyPainter extends CustomPainter {
-  MyPainter({required this.shader, required this.color});
+  const MyPainter({required this.shader, required this.color});
 
   final FragmentShader shader;
   final Color color;
