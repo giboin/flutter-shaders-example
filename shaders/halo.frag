@@ -1,14 +1,16 @@
+// https://www.shadertoy.com/view/3tBGRm
+// Credits to magician0809
+
 #version 300 es
 
 precision mediump float;
 
-// Déclarations des uniformes
 uniform float iTime;
 uniform vec2 iResolution;
 
 out vec4 fragColor;
 
-// Noise de Shadertoy
+// noise from https://www.shadertoy.com/view/4sc3z2
 vec3 hash33(vec3 p3) {
     p3 = fract(p3 * vec3(.1031, .11369, .13787));
     p3 += dot(p3, p3.yxz + 19.19);
@@ -103,7 +105,7 @@ void draw(out vec4 fragColor, in vec2 vUv) {
 
 }
 
-// Point d'entrée principal du shader
+// Main entry point of the shader
 void main() {
     vec2 fragCoord = gl_FragCoord.xy;
     vec2 uv = (fragCoord * 2.0 - iResolution * 3) / iResolution.y;
@@ -113,5 +115,7 @@ void main() {
 
     vec3 bg = BG_COLOR;
 
-    fragColor = vec4(mix(bg, color.rgb, color.a), 0); // Normal blend avec alpha à 0
+    vec3 blend = mix(bg, color.rgb, color.a);
+
+    fragColor = vec4(blend, 1.);
 }
