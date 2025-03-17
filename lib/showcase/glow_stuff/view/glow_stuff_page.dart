@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shaders_example/glow_stuff/widgets/apply_glow.dart';
-import 'package:flutter_shaders_example/glow_stuff/widgets/examples.dart';
-import 'package:flutter_shaders_example/glow_stuff/widgets/horizontal_deviation.dart';
+import 'package:flutter_shaders_example/showcase/glow_stuff/widgets/apply_glow.dart';
+import 'package:flutter_shaders_example/showcase/glow_stuff/widgets/examples.dart';
+import 'package:flutter_shaders_example/showcase/glow_stuff/widgets/horizontal_deviation.dart';
 
 class GlowStuffPage extends StatelessWidget {
   const GlowStuffPage({super.key});

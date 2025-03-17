@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import 'package:flutter_shaders/flutter_shaders.dart';
-import 'package:flutter_shaders_example/glow_stuff/widgets/scroll_aware_builder.dart';
+import 'package:flutter_shaders_example/showcase/glow_stuff/widgets/scroll_aware_builder.dart';
 
 class ApplyGlow extends StatefulWidget {
   const ApplyGlow({
