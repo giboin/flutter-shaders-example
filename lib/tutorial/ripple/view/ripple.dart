@@ -19,7 +19,7 @@ class RipplePage extends StatefulWidget {
 
 class _RipplePageState extends State<RipplePage>
     with SingleTickerProviderStateMixin {
-  double sliderValue = 0;
+  double _sliderValue = 0;
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,
@@ -95,10 +95,10 @@ class _RipplePageState extends State<RipplePage>
                   Slider(
                     activeColor: Colors.purple,
                     inactiveColor: Colors.blue,
-                    value: sliderValue,
+                    value: _sliderValue,
                     onChanged: (value) {
                       setState(() {
-                        sliderValue = value;
+                        _sliderValue = value;
                       });
                     },
                   ),
