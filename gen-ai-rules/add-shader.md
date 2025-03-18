@@ -26,6 +26,8 @@ Your task is to integrate the new shader into the showcase section by following 
 - Use `ShaderMask` widget for applying shaders to specific widgets
 - Use `CustomPaint` implementation for canvas-based shader applications
 - The page should effectively demonstrate the shader's capabilities in a clear and concise manner
+- Prefer using an `OutlinedButton` over a `GestureDetector`
+- Instead of using `Container`, prefer using more specific widgets like `ColoredBox`, `DecoratedBox`, `Padding`, etc.
 
 ## Animation Guidelines
 

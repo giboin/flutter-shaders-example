@@ -24,6 +24,7 @@ flutter:
   uses-material-design: true
   generate: true
   shaders:
+    - shaders/chaos_button.frag
     - shaders/ripple.frag
     - shaders/gradient.frag
     - shaders/water_ripple.frag
