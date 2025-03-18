@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 import 'package:flutter_shaders_example/app/view/app_tile.dart';
+import 'package:flutter_shaders_example/showcase/stripes_pattern/view/stripes_pattern_page.dart';
 import 'package:flutter_shaders_example/tutorial/animated_shader_mask/view/animated_shader_mask_page.dart';
 import 'package:flutter_shaders_example/tutorial/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
 import 'package:flutter_shaders_example/showcase/glow_stuff/view/glow_stuff_page.dart';
@@ -25,6 +26,9 @@ class HomeView extends StatelessWidget {
         child: ListView(
           padding: safePadding + const EdgeInsets.all(24),
           children: [
+            //
+            // ------------------ Tutorial ------------------
+            //
             const _SectionHeader(title: 'Tutorial'),
             const SizedBox(height: 20),
             AppTile(
@@ -90,6 +94,9 @@ class HomeView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 48),
+            //
+            // ------------------ Showcase ------------------
+            //
             const _SectionHeader(title: 'Showcase'),
             const SizedBox(height: 20),
             AppTile(
@@ -97,6 +104,15 @@ class HomeView extends StatelessWidget {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute<GlowStuffPage>(
                   builder: (context) => const GlowStuffPage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Stripes Pattern',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<StripesPatternPage>(
+                  builder: (context) => const StripesPatternPage(),
                 ),
               ),
             ),
