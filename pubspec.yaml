@@ -33,5 +33,6 @@ flutter:
     - shaders/halo.frag
     - shaders/stripes_pattern.frag
     - shaders/freeze.frag
+    - shaders/page_curl.frag
   assets:
     - assets/

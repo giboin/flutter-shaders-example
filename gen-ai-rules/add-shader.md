@@ -20,10 +20,10 @@ Your task is to integrate the new shader into the showcase section by following 
 - The file with the `_page.dart` suffix is the one that should be imported in `home.dart`
 - Pass all input uniforms to the shader from the Dart code
 - For time-based uniforms, use an animation controller and follow the animation rules below
-- For texture-based uniforms, use the `AnimatedSampler` widget's image parameter: `shader.setImageSampler(0, image)`
+- For texture-based uniforms, use the `AnimatedSampler` widget's image parameter: `shader.setImageSampler(0, image)`. If you see a `uniform sampler2D` in the shader code, you have to use `AnimatedSampler`.
 - Create all widgets in separate files
 - Use `StatelessWidget` whenever possible
-- Use `ShaderMask` widget for applying shaders to specific widgets
+- Use `ShaderMask` widget for applying shaders to a widget's rendering
 - Use `CustomPaint` implementation for canvas-based shader applications
 - The page should effectively demonstrate the shader's capabilities in a clear and concise manner
 - Prefer using an `OutlinedButton` over a `GestureDetector`
