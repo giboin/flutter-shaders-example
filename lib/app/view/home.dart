@@ -12,6 +12,7 @@ import 'package:flutter_shaders_example/tutorial/shader_builder/view/shader_buil
 import 'package:flutter_shaders_example/tutorial/shader_mask/view/shader_mask_page.dart';
 import 'package:flutter_shaders_example/tutorial/water_ripple/view/water_ripple_page.dart';
 import 'package:flutter_shaders_example/showcase/chaos_button/view/chaos_button_page.dart';
+import 'package:flutter_shaders_example/showcase/freeze/view/freeze_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.shader});
@@ -132,6 +133,15 @@ class HomeView extends StatelessWidget {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute<ChaosButtonPage>(
                   builder: (context) => const ChaosButtonPage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Freeze Card',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<FreezePage>(
+                  builder: (context) => const FreezePage(),
                 ),
               ),
             ),

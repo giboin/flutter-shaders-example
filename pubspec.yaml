@@ -8,6 +8,7 @@ environment:
   flutter: 3.19.2
 
 dependencies:
+  card_swiper: ^3.0.1
   flutter:
     sdk: flutter
   flutter_shaders: ^0.1.3
@@ -31,5 +32,6 @@ flutter:
     - shaders/dir_glow.glsl
     - shaders/halo.frag
     - shaders/stripes_pattern.frag
+    - shaders/freeze.frag
   assets:
     - assets/
