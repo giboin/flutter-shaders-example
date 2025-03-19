@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 import 'package:flutter_shaders_example/app/view/app_tile.dart';
+import 'package:flutter_shaders_example/showcase/demo_page.dart';
 import 'package:flutter_shaders_example/showcase/stripes_pattern/view/stripes_pattern_page.dart';
 import 'package:flutter_shaders_example/tutorial/animated_shader_mask/view/animated_shader_mask_page.dart';
 import 'package:flutter_shaders_example/tutorial/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_shaders_example/tutorial/water_ripple/view/water_ripple_
 import 'package:flutter_shaders_example/showcase/chaos_button/view/chaos_button_page.dart';
 import 'package:flutter_shaders_example/showcase/freeze/view/freeze_page.dart';
 import 'package:flutter_shaders_example/showcase/page_curl/view/page_curl_page.dart';
+import 'package:flutter_shaders_example/showcase/glitch_transition/view/glitch_transition_page_route.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.shader});
@@ -153,6 +155,13 @@ class HomeView extends StatelessWidget {
                 MaterialPageRoute<PageCurlPage>(
                   builder: (context) => const PageCurlPage(),
                 ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Glitch Transition',
+              onTap: () => Navigator.of(context).push(
+                GlitchTransitionPageRoute(child: const DemoPage()),
               ),
             ),
           ],
