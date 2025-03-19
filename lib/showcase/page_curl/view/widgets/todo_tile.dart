@@ -88,12 +88,9 @@ class _TodoTileState extends State<TodoTile>
               );
             },
             assetKey: 'shaders/page_curl.frag',
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Padding(
-                padding: const EdgeInsets.all(curlMargin),
-                child: _StaticTile(todo: widget.todo),
-              ),
+            child: Padding(
+              padding: const EdgeInsets.all(curlMargin),
+              child: _StaticTile(todo: widget.todo),
             ),
           ),
         ],
