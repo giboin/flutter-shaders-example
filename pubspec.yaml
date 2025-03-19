@@ -29,10 +29,11 @@ flutter:
     - shaders/ripple.frag
     - shaders/gradient.frag
     - shaders/water_ripple.frag
-    - shaders/dir_glow.glsl
+    - shaders/dir_glow.frag
     - shaders/halo.frag
     - shaders/stripes_pattern.frag
     - shaders/freeze.frag
     - shaders/page_curl.frag
+    - shaders/glitch.frag
   assets:
     - assets/

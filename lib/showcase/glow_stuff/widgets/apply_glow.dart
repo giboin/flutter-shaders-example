@@ -72,7 +72,7 @@ class _ApplyGlowState extends State<ApplyGlow> {
     return ScrollAwareBuilder(
       builder: (context, scrollFraction) {
         return ShaderBuilder(
-          assetKey: 'shaders/dir_glow.glsl',
+          assetKey: 'shaders/dir_glow.frag',
           child: widget.child,
           (context, shader, child) {
             return AnimatedSampler(child: child ?? const SizedBox.shrink(), (
