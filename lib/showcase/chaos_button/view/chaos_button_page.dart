@@ -38,54 +38,65 @@ class _ChaosButtonPageState extends State<ChaosButtonPage>
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) => ShaderBuilder(
-            (context, shader, child) {
-              return Stack(
-                children: [
-                  if (_chaos)
-                    Positioned.fill(
-                      child: CustomPaint(
-                        painter: ChaosPainter(
-                          shader: shader,
-                          time: _controller.value * 400,
-                          tapValue: _tapCount.toDouble(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 100),
+            AnimatedBuilder(
+              animation: _controller,
+              builder: (context, child) => ShaderBuilder(
+                (context, shader, child) {
+                  return Stack(
+                    children: [
+                      if (_chaos)
+                        Positioned.fill(
+                          child: CustomPaint(
+                            painter: ChaosPainter(
+                              shader: shader,
+                              time: _controller.value * 400,
+                              tapValue: _tapCount.toDouble(),
+                            ),
+                          ),
+                        ),
+                      OutlinedButton(
+                        onPressed: () {
+                          setState(() {
+                            _chaos = !_chaos;
+                            if (_chaos) {
+                              _tapCount += 0.1;
+                              _controller.forward();
+                              _controller.repeat(reverse: true);
+                            } else {
+                              _controller.stop();
+                            }
+                          });
+                        },
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          side: const BorderSide(color: Colors.white),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 80,
+                            vertical: 40,
+                          ),
+                        ),
+                        child: const Text(
+                          'Chaos Button',
+                          style: TextStyle(fontSize: 16),
                         ),
                       ),
-                    ),
-                  OutlinedButton(
-                    onPressed: () {
-                      setState(() {
-                        _chaos = !_chaos;
-                        if (_chaos) {
-                          _tapCount += 0.1;
-                          _controller.forward();
-                          _controller.repeat(reverse: true);
-                        } else {
-                          _controller.stop();
-                        }
-                      });
-                    },
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      side: const BorderSide(color: Colors.white),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 80,
-                        vertical: 40,
-                      ),
-                    ),
-                    child: const Text(
-                      'Chaos Button',
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  ),
-                ],
-              );
-            },
-            assetKey: 'shaders/chaos_button.frag',
-            child: child,
-          ),
+                    ],
+                  );
+                },
+                assetKey: 'shaders/chaos_button.frag',
+                child: child,
+              ),
+            ),
+            const SizedBox(height: 100),
+            Text(
+              'The more you tap, the more chaos',
+              style: TextStyle(color: Colors.white),
+            ),
+          ],
         ),
       ),
     );
