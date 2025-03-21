@@ -19,7 +19,6 @@ class RipplePage extends StatefulWidget {
 
 class _RipplePageState extends State<RipplePage>
     with SingleTickerProviderStateMixin {
-  double _sliderValue = 0;
   late final AnimationController _controller = AnimationController(
     duration: const Duration(seconds: 2),
     vsync: this,
@@ -60,52 +59,72 @@ class _RipplePageState extends State<RipplePage>
             assetKey: 'shaders/ripple.frag',
             child: child,
           ),
-          child: ColoredBox(
-            color: Colors.white,
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'hello world',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 32,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  MaterialButton(
-                    child: const Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Text('ripple', style: TextStyle(fontSize: 24)),
-                      ),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _tapPosition = Offset(
-                          screenSize.width / 2,
-                          screenSize.height - 100,
-                        );
-                        _controller.forward(from: 0);
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Slider(
-                    activeColor: Colors.purple,
-                    inactiveColor: Colors.blue,
-                    value: _sliderValue,
-                    onChanged: (value) {
-                      setState(() {
-                        _sliderValue = value;
-                      });
-                    },
-                  ),
-                ],
+          child: _MyPage(
+            launchRipple: () => setState(() {
+              _tapPosition = Offset(
+                screenSize.width / 2,
+                screenSize.height - 100,
+              );
+              _controller.forward(from: 0);
+            }),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MyPage extends StatefulWidget {
+  const _MyPage({required this.launchRipple});
+
+  final VoidCallback launchRipple;
+
+  @override
+  State<_MyPage> createState() => _MyPageState();
+}
+
+class _MyPageState extends State<_MyPage> {
+  @override
+  Widget build(BuildContext context) {
+    double _sliderValue = 0;
+
+    return ColoredBox(
+      color: Colors.white,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'hello world',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 32,
               ),
             ),
-          ),
+            const SizedBox(height: 20),
+            MaterialButton(
+              child: const Card(
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text('ripple', style: TextStyle(fontSize: 24)),
+                ),
+              ),
+              onPressed: () {
+                widget.launchRipple();
+              },
+            ),
+            const SizedBox(height: 20),
+            Slider(
+              activeColor: Colors.purple,
+              inactiveColor: Colors.blue,
+              value: _sliderValue,
+              onChanged: (value) {
+                setState(() {
+                  _sliderValue = value;
+                });
+              },
+            ),
+          ],
         ),
       ),
     );
