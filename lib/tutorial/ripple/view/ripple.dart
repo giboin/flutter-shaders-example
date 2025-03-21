@@ -35,97 +35,98 @@ class _RipplePageState extends State<RipplePage>
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.sizeOf(context);
 
-    return Scaffold(
-      body: Center(
-        child: AnimatedBuilder(
-          animation: _controller,
-          builder: (context, child) => ShaderBuilder(
-            (context, shader, child) => AnimatedSampler(
-              (image, size, canvas) {
-                shader
-                  ..setFloat(0, size.width)
-                  ..setFloat(1, size.height)
-                  ..setFloat(2, _tapPosition?.dx ?? 200)
-                  ..setFloat(3, _tapPosition?.dy ?? 200)
-                  ..setFloat(4, _controller.value * 3)
-                  ..setImageSampler(0, image);
-                canvas.drawRect(
-                  Offset.zero & size,
-                  Paint()..shader = shader,
-                );
-              },
-              child: child ?? const SizedBox.shrink(),
-            ),
-            assetKey: 'shaders/ripple.frag',
-            child: child,
-          ),
-          child: _MyPage(
-            launchRipple: () => setState(() {
-              _tapPosition = Offset(
-                screenSize.width / 2,
-                screenSize.height - 100,
+    return Center(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, child) => ShaderBuilder(
+          (context, shader, child) => AnimatedSampler(
+            (image, size, canvas) {
+              shader
+                ..setFloat(0, size.width)
+                ..setFloat(1, size.height)
+                ..setFloat(2, _tapPosition?.dx ?? 200)
+                ..setFloat(3, _tapPosition?.dy ?? 200)
+                ..setFloat(4, _controller.value * 3)
+                ..setImageSampler(0, image);
+              canvas.drawRect(
+                Offset.zero & size,
+                Paint()..shader = shader,
               );
-              _controller.forward(from: 0);
-            }),
+            },
+            child: child ?? const SizedBox.shrink(),
           ),
+          assetKey: 'shaders/ripple.frag',
+          child: child,
+        ),
+        child: _MyPage(
+          launchRipple: () => setState(() {
+            _tapPosition = Offset(
+              screenSize.width / 2,
+              screenSize.height - 100,
+            );
+            _controller.forward(from: 0);
+          }),
         ),
       ),
     );
   }
 }
 
-class _MyPage extends StatefulWidget {
+class _MyPage extends StatelessWidget {
   const _MyPage({required this.launchRipple});
 
   final VoidCallback launchRipple;
 
   @override
-  State<_MyPage> createState() => _MyPageState();
-}
-
-class _MyPageState extends State<_MyPage> {
-  @override
   Widget build(BuildContext context) {
-    double _sliderValue = 0;
-
-    return ColoredBox(
-      color: Colors.white,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'hello world',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 32,
-              ),
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          launchRipple();
+        },
+        child: const Icon(Icons.water_drop),
+      ),
+      body: Column(
+        children: [
+          const Text(
+            'Ripple Effect',
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 32,
             ),
-            const SizedBox(height: 20),
-            MaterialButton(
-              child: const Card(
+          ),
+          const SizedBox(height: 16),
+          const Text(
+            'This is an example for an interactive page that you can animate with shaders.',
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          const Text(
+            'Click on the floating button to see the ripple effect.',
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 32),
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemBuilder: (context, index) => Card(
                 child: Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Text('ripple', style: TextStyle(fontSize: 24)),
+                  padding: const EdgeInsets.all(16),
+                  child: const Text(
+                    'hello world',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 32,
+                    ),
+                  ),
                 ),
               ),
-              onPressed: () {
-                widget.launchRipple();
-              },
             ),
-            const SizedBox(height: 20),
-            Slider(
-              activeColor: Colors.purple,
-              inactiveColor: Colors.blue,
-              value: _sliderValue,
-              onChanged: (value) {
-                setState(() {
-                  _sliderValue = value;
-                });
-              },
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
