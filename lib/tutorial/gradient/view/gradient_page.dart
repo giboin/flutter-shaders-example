@@ -46,8 +46,7 @@ class GradientPage extends StatelessWidget {
 /// - then the color's alpha value to the sixth float (5).
 ///
 /// In glsl, the color is defined as a vector with four values (r, g, b, a)
-/// that go from 0 to 1. So we divide the color's values by 255 to get the
-/// normalized values.
+/// that go from 0 to 1.
 class MyPainter extends CustomPainter {
   const MyPainter({required this.shader, required this.color});
 
@@ -57,11 +56,17 @@ class MyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     shader
+      // set the value of `uniform vec2 uSize;` first float
       ..setFloat(0, size.width)
+      // set the value of `uniform vec2 uSize;` second float
       ..setFloat(1, size.height)
+      // set the value of `uniform vec4 uColor;` first float
       ..setFloat(2, color.r.toDouble())
+      // set the value of `uniform vec4 uColor;` second float
       ..setFloat(3, color.g.toDouble())
+      // set the value of `uniform vec4 uColor;` third float
       ..setFloat(4, color.b.toDouble())
+      // set the value of `uniform vec4 uColor;` fourth float
       ..setFloat(5, color.a.toDouble());
 
     canvas.drawRect(
