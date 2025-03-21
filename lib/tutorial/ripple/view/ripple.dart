@@ -105,9 +105,7 @@ class _MyPage extends StatelessWidget {
           ),
           const Text(
             'Click on the floating button to see the ripple effect.',
-            style: TextStyle(
-              fontSize: 16,
-            ),
+            style: TextStyle(fontSize: 16),
           ),
           const SizedBox(height: 32),
           Expanded(
@@ -118,10 +116,7 @@ class _MyPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16),
                   child: const Text(
                     'hello world',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 32,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
                   ),
                 ),
               ),
