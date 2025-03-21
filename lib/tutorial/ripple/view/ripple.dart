@@ -39,6 +39,7 @@ class _RipplePageState extends State<RipplePage>
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) => ShaderBuilder(
+          // Warning : AnimatedSampler does not work with Platform views
           (context, shader, child) => AnimatedSampler(
             (image, size, canvas) {
               shader
