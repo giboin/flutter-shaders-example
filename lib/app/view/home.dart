@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 import 'package:flutter_shaders_example/app/view/app_tile.dart';
-import 'package:flutter_shaders_example/showcase/demo_page.dart';
+import 'package:flutter_shaders_example/showcase/first_demo_page.dart';
+import 'package:flutter_shaders_example/showcase/second_demo_page.dart';
 import 'package:flutter_shaders_example/showcase/stripes_pattern/view/stripes_pattern_page.dart';
 import 'package:flutter_shaders_example/tutorial/animated_shader_mask/view/animated_shader_mask_page.dart';
 import 'package:flutter_shaders_example/tutorial/animated_shader_mask_on_screen/view/animated_shader_mask_on_screen_page.dart';
@@ -161,7 +162,18 @@ class HomeView extends StatelessWidget {
             AppTile(
               title: 'Glitch Transition',
               onTap: () => Navigator.of(context).push(
-                GlitchTransitionPageRoute(child: const DemoPage()),
+                GlitchTransitionPageRoute<FirstDemoPage>(
+                  type: GlitchTransitionType.secondary,
+                  child: FirstDemoPage(
+                    buttonLabel: 'Go to second page',
+                    buttonOnPressed: () => Navigator.of(context).push(
+                      GlitchTransitionPageRoute<SecondDemoPage>(
+                        type: GlitchTransitionType.primary,
+                        child: const SecondDemoPage(),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
