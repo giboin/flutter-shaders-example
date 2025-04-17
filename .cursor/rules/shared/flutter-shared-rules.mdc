@@ -1,0 +1,14 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# UI
+- instead of using Container, prefer more specific widgets like SizedBox, Padding, ColoredBox, etc
+- when you need to add widgets, add the fewer widgets possible
+
+# dart code
+- avoid mutating instances
+- instead of using List, use IList from 'package:fast_immutable_collections/fast_immutable_collections.dart'
+- empty ILists are created using 'IList()'
+- follow effective dart rules for naming
