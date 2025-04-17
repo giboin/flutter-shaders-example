@@ -35,5 +35,6 @@ flutter:
     - shaders/freeze.frag
     - shaders/page_curl.frag
     - shaders/glitch.frag
+    - shaders/motion_blur.frag
   assets:
     - assets/
