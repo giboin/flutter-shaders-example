@@ -26,12 +26,10 @@ class _TextEditableExampleState extends State<TextEditableExample> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.blue.shade900,
       height: MediaQuery.sizeOf(context).height,
       padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 36),
       child: Center(
         child: EditableText(
-          // maxLines: 2,
           controller: _contoller,
           focusNode: _focusNode,
           textAlign: TextAlign.center,
@@ -111,11 +109,8 @@ class _RiveExampleState extends State<RiveExample> {
       child: ColoredBox(
         color: const Color(0xFF201620),
         child: Center(
-          child: SizedBox(
-            width: 900,
-            height: 900,
-
-            /// Rive animation by JcToon: https://rive.app/community/1534-6767-eye-icon/
+          child: SizedBox.square(
+            dimension: 900,
             child: RiveAnimation.asset(
               'assets/eye.riv',
               onInit: _onRiveInit,
@@ -133,7 +128,7 @@ class LongTextExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: const EdgeInsets.symmetric(vertical: 400, horizontal: 36),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -22,13 +22,10 @@ enum Priority {
   high;
 
   Color get color {
-    switch (this) {
-      case Priority.low:
-        return Colors.green;
-      case Priority.medium:
-        return Colors.orange;
-      case Priority.high:
-        return Colors.red;
-    }
+    return switch (this) {
+      Priority.low => Colors.green,
+      Priority.medium => Colors.orange,
+      Priority.high => Colors.red,
+    };
   }
 }

@@ -12,9 +12,8 @@ class StripesPatternPage extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            SizedBox(
-              width: 100,
-              height: 100,
+            SizedBox.square(
+              dimension: 100,
               child: Striped(
                 child: DecoratedBox(
                   decoration: BoxDecoration(

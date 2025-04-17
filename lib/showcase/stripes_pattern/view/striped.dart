@@ -57,8 +57,6 @@ class _StripedState extends State<Striped> with SingleTickerProviderStateMixin {
           (context, shader, builderChild) {
             return ShaderMask(
               shaderCallback: (bounds) {
-                // print(_controller.value);
-
                 return shader
                   ..setFloat(0, bounds.width)
                   ..setFloat(1, bounds.height)

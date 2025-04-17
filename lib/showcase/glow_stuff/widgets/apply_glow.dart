@@ -67,8 +67,6 @@ class _ApplyGlowState extends State<ApplyGlow> {
       return const SizedBox.shrink();
     }
 
-    // final horzDev = HorizontalDeviationProvider.of(context);
-
     return ScrollAwareBuilder(
       builder: (context, scrollFraction) {
         return ShaderBuilder(

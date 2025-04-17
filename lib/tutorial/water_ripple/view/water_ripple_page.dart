@@ -50,9 +50,8 @@ class _WaterRipplePageState extends State<WaterRipplePage>
               return const SizedBox.shrink();
             }
 
-            return SizedBox(
-              width: 300,
-              height: 300,
+            return SizedBox.square(
+              dimension: 300,
               child: GestureDetector(
                 onTapDown: (details) => setState(() {
                   _tapPosition = details.localPosition;
