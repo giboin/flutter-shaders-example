@@ -1,6 +1,6 @@
 ---
 description: 
-globs: 
+globs: *.dart
 alwaysApply: false
 ---
 # UI
@@ -11,4 +11,8 @@ alwaysApply: false
 - avoid mutating instances
 - instead of using List, use IList from 'package:fast_immutable_collections/fast_immutable_collections.dart'
 - empty ILists are created using 'IList()'
-- follow effective dart rules for naming
+
+## dart naming conventions
+- put the most descriptive noun last
+- use wildcards for unused callback parameters
+- sort imports alphabetically
