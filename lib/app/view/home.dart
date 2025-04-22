@@ -17,6 +17,7 @@ import 'package:flutter_shaders_example/showcase/chaos_button/view/chaos_button_
 import 'package:flutter_shaders_example/showcase/freeze/view/freeze_page.dart';
 import 'package:flutter_shaders_example/showcase/page_curl/view/page_curl_page.dart';
 import 'package:flutter_shaders_example/showcase/glitch_transition/view/glitch_transition_page_route.dart';
+import 'package:flutter_shaders_example/showcase/motion_blur/view/motion_blur_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key, required this.shader});
@@ -155,6 +156,15 @@ class HomeView extends StatelessWidget {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute<PageCurlPage>(
                   builder: (context) => const PageCurlPage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Motion Blur',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<MotionBlurPage>(
+                  builder: (context) => const MotionBlurPage(),
                 ),
               ),
             ),
