@@ -17,6 +17,7 @@ class TodoTile extends StatefulWidget {
 }
 
 const curlMargin = 15.0;
+const deleteThreshold = -200.0;
 
 class _TodoTileState extends State<TodoTile>
     with SingleTickerProviderStateMixin {
@@ -31,7 +32,7 @@ class _TodoTileState extends State<TodoTile>
 
   void _onDragEnd(DragEndDetails details) {
     setState(() {
-      if (_dragOffset < -200.0) {
+      if (_dragOffset < deleteThreshold) {
         widget.onDelete();
         _dragOffset = 0.0;
       } else {
@@ -64,19 +65,21 @@ class _TodoTileState extends State<TodoTile>
             (context, shader, tileWidget) {
               return AnimatedSampler(
                 (image, size, canvas) {
+                  final width = size.width;
+                  final height = size.height;
+                  final originDx = width - _dragOrigin;
                   shader
-                    ..setFloat(0, size.width)
-                    ..setFloat(1, size.height)
+                    ..setFloat(0, width)
+                    ..setFloat(1, height)
                     ..setFloat(
                       2,
-                      _dragOffset *
-                          ((size.width - _dragOrigin) * 2 / size.width + 1),
+                      _dragOffset * ((originDx + width) / width),
                     )
                     ..setFloat(3, 0)
                     ..setFloat(4, curlMargin)
                     ..setFloat(5, curlMargin)
-                    ..setFloat(6, size.width - curlMargin)
-                    ..setFloat(7, size.height - curlMargin)
+                    ..setFloat(6, width - curlMargin)
+                    ..setFloat(7, height - curlMargin)
                     ..setFloat(8, 8.0)
                     ..setImageSampler(0, image);
                   canvas.drawRect(
