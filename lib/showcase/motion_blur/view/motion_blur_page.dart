@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
+import 'package:flutter_shaders_example/app/view/list_example.dart';
 
 class MotionBlurPage extends StatefulWidget {
   const MotionBlurPage({super.key});
@@ -57,21 +58,7 @@ class _MotionBlurPageState extends State<MotionBlurPage>
             );
           },
           assetKey: 'shaders/motion_blur.frag',
-          child: ListView.builder(
-            itemCount: 100,
-            itemBuilder: (context, index) {
-              return Card(
-                margin: const EdgeInsets.all(8),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(
-                    'coucou Item $index',
-                    style: const TextStyle(fontSize: 24),
-                  ),
-                ),
-              );
-            },
-          ),
+          child: const ListExample(),
         ),
       ),
     );
