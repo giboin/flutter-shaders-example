@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
+import 'package:flutter_shaders_example/app/view/list_example.dart';
 
 /// Now we know how to give an image to a shader, but what if we want
 /// to apply the previous ripple effect to a Widget? How could we
@@ -87,40 +88,29 @@ class _MyPage extends StatelessWidget {
         },
         child: const Icon(Icons.water_drop),
       ),
-      body: Column(
+      body: const Column(
         children: [
-          const Text(
+          Text(
             'Ripple Effect',
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 32,
             ),
           ),
-          const SizedBox(height: 16),
-          const Text(
+          SizedBox(height: 16),
+          Text(
             'This is an example for an interactive page that you can animate with shaders.',
             style: TextStyle(
               fontSize: 16,
             ),
           ),
-          const Text(
+          Text(
             'Click on the floating button to see the ripple effect.',
             style: TextStyle(fontSize: 16),
           ),
-          const SizedBox(height: 32),
+          SizedBox(height: 32),
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemBuilder: (context, index) => Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: const Text(
-                    'hello world',
-                    style: TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
-                  ),
-                ),
-              ),
-            ),
+            child: ListExample(),
           ),
         ],
       ),
