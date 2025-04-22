@@ -7,9 +7,10 @@ uniform sampler2D u_texture;
 
 out vec4 frag_color;
 
+#define q 24
+
 void main() {
-    
-    float q = 24.0;
+
     vec2 p = FlutterFragCoord().xy / u_size ; 
     vec2 v = u_velocity/ u_size / 2;
 
