@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class HorizontalDeviationProvider extends StatefulWidget {
@@ -22,7 +21,7 @@ class HorizontalDeviationProvider extends StatefulWidget {
     final result =
         context.dependOnInheritedWidgetOfExactType<_HorzDevInherit>();
     if (result == null) {
-      throw Exception('No _HorzDevInherit found in context');
+      return 0.5;
     }
 
     return result.position;
@@ -55,13 +54,13 @@ class _HorizontalDeviationProviderState
           onPointerHover: _handlePointerHover,
           child: GyroRoll(
             rotationX: _position,
-            builder: (context, gyroValue) {
+            builder: (context, value) {
               return TweenAnimationBuilder(
                 duration: const Duration(milliseconds: 350),
-                tween: Tween<double>(begin: 0, end: gyroValue),
-                builder: (context, tweenValue, child) {
+                tween: Tween<double>(begin: 0, end: value),
+                builder: (context, animationValue, child) {
                   return _HorzDevInherit(
-                    position: tweenValue,
+                    position: animationValue,
                     child: widget.child,
                   );
                 },
@@ -105,8 +104,12 @@ class GyroRoll extends StatefulWidget {
 
 class _GyroRollState extends State<GyroRoll> {
   late double _rotationX = widget.rotationX;
+
   bool _renderLock = false;
+
   StreamSubscription<GyroscopeEvent>? _subscription;
+
+  double _sliderValue = 0.5;
 
   @override
   void initState() {
@@ -117,7 +120,10 @@ class _GyroRollState extends State<GyroRoll> {
       case TargetPlatform.iOS:
         _subscription = gyroscopeEventStream().listen(_handleGyro);
         break;
-      default:
+      case TargetPlatform.linux:
+      case TargetPlatform.macOS:
+      case TargetPlatform.windows:
+      case TargetPlatform.fuchsia:
         break;
     }
   }
@@ -141,6 +147,7 @@ class _GyroRollState extends State<GyroRoll> {
   }
 
   void _handleGyro(GyroscopeEvent event) {
+    print('event: $event');
     if (_renderLock) return;
     _renderLock = true;
 
@@ -159,6 +166,30 @@ class _GyroRollState extends State<GyroRoll> {
 
   @override
   Widget build(BuildContext context) {
+    if (_subscription == null) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(child: widget.builder(context, _rotationX)),
+          SizedBox(
+            height: 100,
+            child: Slider(
+              value: _sliderValue,
+              min: -1,
+              max: 1,
+              onChanged: (value) {
+                setState(() {
+                  _sliderValue = value;
+                  _rotationX += (_sliderValue * 10).toInt() /
+                      MediaQuery.sizeOf(context).width;
+                });
+              },
+            ),
+          ),
+        ],
+      );
+    }
+
     return widget.builder(context, _rotationX);
   }
 }

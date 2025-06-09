@@ -6,10 +6,8 @@ import 'package:flutter_shaders_example/showcase/glow_stuff/widgets/horizontal_d
 class GlowStuffPage extends StatelessWidget {
   const GlowStuffPage({super.key});
 
-  static Route<GlowStuffPage> route() {
-    return MaterialPageRoute<GlowStuffPage>(
-      builder: (_) => const GlowStuffPage(),
-    );
+  static Route route() {
+    return MaterialPageRoute(builder: (_) => const GlowStuffPage());
   }
 
   @override
