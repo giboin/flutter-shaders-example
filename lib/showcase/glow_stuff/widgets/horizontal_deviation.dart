@@ -1,9 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:sensors_plus/sensors_plus.dart';
+import 'package:flutter_shaders_example/showcase/shared/widgets/gyro_builder.dart';
 
 class HorizontalDeviationProvider extends StatefulWidget {
   const HorizontalDeviationProvider({
@@ -53,7 +51,7 @@ class _HorizontalDeviationProviderState
         return Listener(
           onPointerHover: _handlePointerHover,
           child: GyroRoll(
-            rotationX: _position,
+            deviationX: _position,
             builder: (context, value) {
               return TweenAnimationBuilder(
                 duration: const Duration(milliseconds: 350),
@@ -87,109 +85,29 @@ class _HorzDevInherit extends InheritedWidget {
   }
 }
 
-class GyroRoll extends StatefulWidget {
+class GyroRoll extends StatelessWidget {
   const GyroRoll({
     super.key,
-    required this.rotationX,
+    required this.deviationX,
     required this.builder,
   });
 
-  final double rotationX;
+  final double deviationX;
 
   final Widget Function(BuildContext context, double deviation) builder;
 
   @override
-  State<GyroRoll> createState() => _GyroRollState();
-}
-
-class _GyroRollState extends State<GyroRoll> {
-  late double _rotationX = widget.rotationX;
-
-  bool _renderLock = false;
-
-  StreamSubscription<GyroscopeEvent>? _subscription;
-
-  double _sliderValue = 0.5;
-
-  @override
-  void initState() {
-    super.initState();
-
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-      case TargetPlatform.iOS:
-        _subscription = gyroscopeEventStream().listen(_handleGyro);
-        break;
-      case TargetPlatform.linux:
-      case TargetPlatform.macOS:
-      case TargetPlatform.windows:
-      case TargetPlatform.fuchsia:
-        break;
-    }
-  }
-
-  @override
-  void didUpdateWidget(covariant GyroRoll oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    _rotationX = widget.rotationX;
-
-    _renderLock = true;
-    Future.delayed(const Duration(milliseconds: 500), () {
-      _renderLock = false;
-    });
-  }
-
-  @override
-  void dispose() {
-    _subscription?.cancel();
-    super.dispose();
-  }
-
-  void _handleGyro(GyroscopeEvent event) {
-    print('event: $event');
-    if (_renderLock) return;
-    _renderLock = true;
-
-    final amount =
-        defaultTargetPlatform == TargetPlatform.iOS ? event.x : event.y;
-    final factor = defaultTargetPlatform == TargetPlatform.iOS ? 1500 : 750;
-
-    setState(() {
-      _rotationX += (amount * 100).toInt() / factor;
-    });
-
-    Future.delayed(const Duration(milliseconds: 100), () {
-      _renderLock = false;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (_subscription == null) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Flexible(child: widget.builder(context, _rotationX)),
-          SizedBox(
-            height: 100,
-            child: Slider(
-              value: _sliderValue,
-              min: -1,
-              max: 1,
-              onChanged: (value) {
-                setState(() {
-                  _sliderValue = value;
-                  _rotationX += (_sliderValue * 10).toInt() /
-                      MediaQuery.sizeOf(context).width;
-                });
-              },
-            ),
-          ),
-        ],
-      );
-    }
+    return GyroBuilder(builder: (context, rotationX, rotationY) {
+      final amount = defaultTargetPlatform == TargetPlatform.android
+          ? rotationY
+          : rotationX;
+      final factor = defaultTargetPlatform == TargetPlatform.iOS ? 1500 : 750;
 
-    return widget.builder(context, _rotationX);
+      return builder(
+        context,
+        deviationX + (amount * 100).toInt() / factor,
+      );
+    });
   }
 }
