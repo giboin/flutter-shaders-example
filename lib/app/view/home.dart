@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 import 'package:flutter_shaders_example/app/view/app_tile.dart';
+import 'package:flutter_shaders_example/showcase/light_reflection/view/light_reflection_page.dart';
 import 'package:flutter_shaders_example/showcase/shared/widgets/first_demo_page.dart';
 import 'package:flutter_shaders_example/showcase/shared/widgets/second_demo_page.dart';
 import 'package:flutter_shaders_example/showcase/stripes_pattern/view/stripes_pattern_page.dart';
@@ -147,6 +148,15 @@ class HomeView extends StatelessWidget {
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute<FreezePage>(
                   builder: (context) => const FreezePage(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            AppTile(
+              title: 'Light Reflection Card',
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute<LightReflectionPage>(
+                  builder: (context) => const LightReflectionPage(),
                 ),
               ),
             ),
