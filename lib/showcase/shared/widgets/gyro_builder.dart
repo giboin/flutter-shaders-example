@@ -69,7 +69,8 @@ class _GyroBuilderState extends State<GyroBuilder> {
       return Column(
         children: [
           Expanded(
-            child: widget.builder(context, _rotationX, _rotationY),
+            child:
+                Center(child: widget.builder(context, _rotationX, _rotationY)),
           ),
           Text('${_verticalSlider ? 'Vertical' : 'Horizontal'} gyroscope mock'),
           SizedBox(
