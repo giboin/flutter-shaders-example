@@ -99,14 +99,11 @@ class GyroRoll extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GyroBuilder(builder: (context, rotationX, rotationY) {
-      final amount = defaultTargetPlatform == TargetPlatform.android
-          ? rotationY
-          : rotationX;
       final factor = defaultTargetPlatform == TargetPlatform.iOS ? 1500 : 750;
 
       return builder(
         context,
-        deviationX + (amount * 100).toInt() / factor,
+        deviationX + (rotationX * 100).toInt() / factor,
       );
     });
   }

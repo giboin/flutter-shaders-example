@@ -50,8 +50,13 @@ class _GyroBuilderState extends State<GyroBuilder> {
     if (_renderLock) return;
     _renderLock = true;
     setState(() {
-      _rotationX += event.x;
-      _rotationY += event.y;
+      if (defaultTargetPlatform == TargetPlatform.android) {
+        _rotationX += event.y;
+        _rotationY += event.x;
+      } else {
+        _rotationX += event.x;
+        _rotationY += event.y;
+      }
     });
     Future.delayed(const Duration(milliseconds: 100), () {
       _renderLock = false;
@@ -63,7 +68,9 @@ class _GyroBuilderState extends State<GyroBuilder> {
     if (_subscription == null) {
       return Column(
         children: [
-          Expanded(child: widget.builder(context, _rotationX, _rotationY)),
+          Expanded(
+            child: widget.builder(context, _rotationX, _rotationY),
+          ),
           Text('${_verticalSlider ? 'Vertical' : 'Horizontal'} gyroscope mock'),
           SizedBox(
             height: 50,
