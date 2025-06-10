@@ -8,11 +8,7 @@ class LightReflectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SizedBox(
-          width: 400,
-          height: 300,
-          child: ReflectionCreditCard(),
-        ),
+        child: ReflectionCreditCard(),
       ),
     );
   }
