@@ -17,16 +17,27 @@ class GyroBuilder extends StatefulWidget {
   State<GyroBuilder> createState() => _GyroBuilderState();
 }
 
-class _GyroBuilderState extends State<GyroBuilder> {
+class _GyroBuilderState extends State<GyroBuilder>
+    with SingleTickerProviderStateMixin {
   StreamSubscription<GyroscopeEvent>? _subscription;
-  double _rotationX = 0;
-  double _rotationY = 0;
+  Offset _offset = Offset.zero;
+  late AnimationController _controller;
+  late Animation<Offset> _animation;
   bool _verticalSlider = false;
   bool _renderLock = false;
 
   @override
   void initState() {
     super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 100),
+    );
+    _animation = Tween<Offset>(
+      begin: Offset.zero,
+      end: Offset.zero,
+    ).animate(_controller);
+
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
       case TargetPlatform.iOS:
@@ -43,22 +54,28 @@ class _GyroBuilderState extends State<GyroBuilder> {
   @override
   void dispose() {
     _subscription?.cancel();
+    _controller.dispose();
     super.dispose();
   }
 
   void _handleGyro(GyroscopeEvent event) {
+    final targetX = _offset.dx +
+        (defaultTargetPlatform == TargetPlatform.android ? event.y : event.x);
+    final targetY = _offset.dy +
+        (defaultTargetPlatform == TargetPlatform.android ? event.x : event.y);
+
     if (_renderLock) return;
     _renderLock = true;
-    setState(() {
-      if (defaultTargetPlatform == TargetPlatform.android) {
-        _rotationX += event.y;
-        _rotationY += event.x;
-      } else {
-        _rotationX += event.x;
-        _rotationY += event.y;
-      }
-    });
+
+    _animation = Tween<Offset>(
+      begin: _offset,
+      end: Offset(targetX, targetY),
+    ).animate(_controller);
+
+    _controller.forward(from: 0);
+
     Future.delayed(const Duration(milliseconds: 100), () {
+      _offset = Offset(targetX, targetY);
       _renderLock = false;
     });
   }
@@ -70,7 +87,7 @@ class _GyroBuilderState extends State<GyroBuilder> {
         children: [
           Expanded(
             child:
-                Center(child: widget.builder(context, _rotationX, _rotationY)),
+                Center(child: widget.builder(context, _offset.dx, _offset.dy)),
           ),
           Text('${_verticalSlider ? 'Vertical' : 'Horizontal'} gyroscope mock'),
           SizedBox(
@@ -88,14 +105,16 @@ class _GyroBuilderState extends State<GyroBuilder> {
                 ),
                 Expanded(
                   child: Slider(
-                    value: _verticalSlider ? _rotationY : _rotationX,
+                    value: _verticalSlider ? _offset.dy : _offset.dx,
                     min: -1,
                     max: 1,
                     onChanged: (value) {
+                      final newOffset = _verticalSlider
+                          ? Offset(_offset.dx, value)
+                          : Offset(value, _offset.dy);
+
                       setState(() {
-                        _verticalSlider
-                            ? _rotationY = value
-                            : _rotationX = value;
+                        _offset = newOffset;
                       });
                     },
                   ),
@@ -107,6 +126,13 @@ class _GyroBuilderState extends State<GyroBuilder> {
       );
     }
 
-    return widget.builder(context, _rotationX, _rotationY);
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, _) => widget.builder(
+        context,
+        _animation.value.dx,
+        _animation.value.dy,
+      ),
+    );
   }
 }
