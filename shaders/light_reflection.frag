@@ -6,11 +6,11 @@ precision mediump float;
 
 uniform vec2 iResolution;
 uniform float progress; // 0.0 -> light on the left, 0.5 -> light nowhere , 1.0 -> light on the right
-uniform float verticalFalloffFactor;
-uniform float horizontalFalloffFactor;
+uniform float debounceFactor;
 uniform float rayRotation;
 uniform float rayIntensity;
-uniform float speed;
+uniform float verticalFalloffFactor;
+uniform float horizontalFalloffFactor;
 uniform sampler2D image;
 
 out vec4 fragColor;
@@ -21,8 +21,9 @@ void main() {
     vec4 color = texture(image, uv);
 
     // Calculate the light position based on progress
-    float lightX = (progress < 0.5 ? progress : progress - 0.5);
-    lightX = lightX*(3.0+speed*5.0) - 1.0;
+    float duplicatedProgress = mod(progress,0.5)*2.0;
+    float debouncedProgress = (duplicatedProgress*(1.5+debounceFactor))+0.5-(1.5+debounceFactor)*0.5;
+    float lightX = debouncedProgress; 
     
     // Transform UV coordinates based on rotation
     float angle = rayRotation * 3.14159; // Convert 0-1 to 0-π

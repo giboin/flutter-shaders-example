@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shaders/flutter_shaders.dart';
 import 'package:flutter_shaders_example/showcase/shared/widgets/gyro_builder.dart';
 import 'package:flutter_shaders_example/showcase/shared/widgets/playground.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 
-const _verticalFalloffFactorKey = 'verticalFalloffFactor';
-const _rayRotationKey = 'rayRotation';
-const _horizontalFalloffFactorKey = 'horizontalFalloffFactor';
-const _rayIntensityKey = 'rayIntensity';
+const _verticalFalloffFactorKey = 'vertical falloff';
+const _rayRotationKey = 'ray rotation';
+const _horizontalFalloffFactorKey = 'horizontal falloff';
+const _rayIntensityKey = 'ray intensity';
+const _debounceFactorKey = 'debounce factor';
 const _speedKey = 'speed';
 
 class ReflectionCreditCard extends StatelessWidget {
@@ -18,47 +20,53 @@ class ReflectionCreditCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Playground(
       valuesToPlayWith: [
-        (_verticalFalloffFactorKey, 0.5),
-        (_horizontalFalloffFactorKey, 0.5),
+        (_speedKey, 0.5),
+        (_debounceFactorKey, 0.4),
         (_rayRotationKey, 0.15),
         (_rayIntensityKey, 0.4),
-        (_speedKey, 0.4),
+        (_verticalFalloffFactorKey, 0.5),
+        (_horizontalFalloffFactorKey, 0.5),
       ],
-      builder: (context, values) =>
-          GyroBuilder(builder: (context, rotationX, rotationY) {
-        return ShaderBuilder(
-          (context, shader, child) {
-            return AnimatedSampler(
-              (image, size, canvas) {
-                shader
-                  ..setFloat(0, size.width)
-                  ..setFloat(1, size.height)
-                  ..setFloat(2, (rotationX + 1) / 2)
-                  ..setFloat(3, values.get(_verticalFalloffFactorKey))
-                  ..setFloat(4, values.get(_horizontalFalloffFactorKey))
-                  ..setFloat(5, values.get(_rayRotationKey))
-                  ..setFloat(6, values.get(_rayIntensityKey))
-                  ..setFloat(7, values.get(_speedKey))
-                  ..setImageSampler(0, image);
+      builder: (context, values) => GyroBuilder(
+        samplingPeriod: SensorInterval.gameInterval,
+        builder: (context, rotationX, _) {
+          return ShaderBuilder(
+            (context, shader, child) {
+              final progress =
+                  (rotationX + 10) / 20 * values.get(_speedKey) * 2;
 
-                canvas.clipRRect(
-                  RRect.fromRectAndRadius(
+              return AnimatedSampler(
+                (image, size, canvas) {
+                  shader
+                    ..setFloat(0, size.width)
+                    ..setFloat(1, size.height)
+                    ..setFloat(2, progress)
+                    ..setFloat(3, values.get(_debounceFactorKey) * 5)
+                    ..setFloat(4, values.get(_rayRotationKey))
+                    ..setFloat(5, values.get(_rayIntensityKey))
+                    ..setFloat(6, values.get(_verticalFalloffFactorKey))
+                    ..setFloat(7, values.get(_horizontalFalloffFactorKey))
+                    ..setImageSampler(0, image);
+
+                  canvas.clipRRect(
+                    RRect.fromRectAndRadius(
+                      Offset.zero & size,
+                      const Radius.circular(16),
+                    ),
+                  );
+                  canvas.drawRect(
                     Offset.zero & size,
-                    const Radius.circular(16),
-                  ),
-                );
-                canvas.drawRect(
-                  Offset.zero & size,
-                  Paint()..shader = shader,
-                );
-              },
-              child: child ?? SizedBox.shrink(),
-            );
-          },
-          assetKey: 'shaders/light_reflection.frag',
-          child: _CreditCard(),
-        );
-      }),
+                    Paint()..shader = shader,
+                  );
+                },
+                child: child ?? SizedBox.shrink(),
+              );
+            },
+            assetKey: 'shaders/light_reflection.frag',
+            child: _CreditCard(),
+          );
+        },
+      ),
     );
   }
 }
@@ -73,14 +81,7 @@ class _CreditCard extends StatelessWidget {
       height: 230,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [
-              Color.fromARGB(255, 24, 45, 83),
-              Color.fromARGB(255, 49, 100, 188),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          color: Color(0xFFFF2B44),
           borderRadius: const BorderRadius.all(Radius.circular(16)),
           boxShadow: [
             BoxShadow(

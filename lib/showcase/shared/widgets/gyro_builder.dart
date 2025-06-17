@@ -5,13 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 class GyroBuilder extends StatefulWidget {
-  const GyroBuilder({super.key, required this.builder});
+  const GyroBuilder({
+    super.key,
+    required this.builder,
+    Duration? animateDuration,
+    this.samplingPeriod = SensorInterval.normalInterval,
+  }) : this.animateDuration = animateDuration ?? samplingPeriod;
 
   final Widget Function(
     BuildContext context,
     double rotationX,
     double rotationY,
   ) builder;
+
+  final Duration animateDuration;
+  final Duration samplingPeriod;
 
   @override
   State<GyroBuilder> createState() => _GyroBuilderState();
@@ -31,7 +39,7 @@ class _GyroBuilderState extends State<GyroBuilder>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 100),
+      duration: widget.animateDuration,
     );
     _animation = Tween<Offset>(
       begin: Offset.zero,
@@ -41,7 +49,9 @@ class _GyroBuilderState extends State<GyroBuilder>
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
       case TargetPlatform.iOS:
-        _subscription = gyroscopeEventStream().listen(_handleGyro);
+        _subscription =
+            gyroscopeEventStream(samplingPeriod: SensorInterval.gameInterval)
+                .listen((event) => _handleGyro(event, widget.animateDuration));
         break;
       case TargetPlatform.linux:
       case TargetPlatform.macOS:
@@ -58,26 +68,37 @@ class _GyroBuilderState extends State<GyroBuilder>
     super.dispose();
   }
 
-  void _handleGyro(GyroscopeEvent event) {
+  void _handleGyro(
+    GyroscopeEvent event,
+    Duration animateDuration,
+  ) {
     final targetX = _offset.dx +
         (defaultTargetPlatform == TargetPlatform.android ? event.y : event.x);
     final targetY = _offset.dy +
         (defaultTargetPlatform == TargetPlatform.android ? event.x : event.y);
 
-    if (_renderLock) return;
-    _renderLock = true;
+    if (animateDuration.inMilliseconds > 0) {
+      if (_renderLock) return;
+      _renderLock = true;
 
-    _animation = Tween<Offset>(
-      begin: _offset,
-      end: Offset(targetX, targetY),
-    ).animate(_controller);
+      _animation = Tween<Offset>(
+        begin: _offset,
+        end: Offset(targetX, targetY),
+      ).animate(_controller);
 
-    _controller.forward(from: 0);
+      _controller.forward(from: 0);
 
-    Future.delayed(const Duration(milliseconds: 100), () {
-      _offset = Offset(targetX, targetY);
-      _renderLock = false;
-    });
+      Future.delayed(animateDuration, () {
+        setState(() {
+          _offset = Offset(targetX, targetY);
+          _renderLock = false;
+        });
+      });
+    } else {
+      setState(() {
+        _offset = Offset(targetX, targetY);
+      });
+    }
   }
 
   @override
@@ -89,7 +110,11 @@ class _GyroBuilderState extends State<GyroBuilder>
             child:
                 Center(child: widget.builder(context, _offset.dx, _offset.dy)),
           ),
-          Text('${_verticalSlider ? 'Vertical' : 'Horizontal'} gyroscope mock'),
+          Text(
+            _verticalSlider
+                ? 'Vertical gyroscope mock :${_offset.dy.toStringAsFixed(2)}'
+                : 'Horizontal gyroscope mock :${_offset.dx.toStringAsFixed(2)}',
+          ),
           SizedBox(
             height: 50,
             child: Row(
@@ -106,8 +131,8 @@ class _GyroBuilderState extends State<GyroBuilder>
                 Expanded(
                   child: Slider(
                     value: _verticalSlider ? _offset.dy : _offset.dx,
-                    min: -1,
-                    max: 1,
+                    min: -10,
+                    max: 10,
                     onChanged: (value) {
                       final newOffset = _verticalSlider
                           ? Offset(_offset.dx, value)

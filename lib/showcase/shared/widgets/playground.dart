@@ -30,7 +30,7 @@ class _PlaygroundState<T extends List<(String, double)>>
     return Column(
       children: [
         Expanded(child: Center(child: widget.builder(context, _vars as T))),
-        ...widget.valuesToPlayWith.mapIndexed((index, value) => SizedBox(
+        ..._vars.mapIndexed((index, value) => SizedBox(
               height: 50,
               child: Row(
                 children: [
